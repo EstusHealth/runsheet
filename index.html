@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boundaries Webinar — Facilitator Run-Sheet · Estus Health</title>
+<meta name="description" content="Estus Health facilitator run-sheet for the live Boundaries webinar — an ADHD-friendly companion with cues, cheat cards and copy-ready scripts.">
+<meta name="theme-color" content="#090909">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23090909'/%3E%3Crect x='6' y='8' width='20' height='4' fill='%23344982'/%3E%3Crect x='6' y='13' width='20' height='4' fill='%232f6f9e'/%3E%3Crect x='6' y='18' width='20' height='4' fill='%232ca5b8'/%3E%3Crect x='6' y='23' width='20' height='4' fill='%23ab5c95'/%3E%3C/svg%3E">
+<link rel="preload" href="fonts/Oswald-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/Barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{
+    /* ---- Estus Health brand bands ---- */
+    --band-1:#344982; --band-2:#2f6f9e; --band-3:#2ca5b8; --band-4:#ab5c95;
+    --band-grad:linear-gradient(90deg,#344982 0%,#2f6f9e 34%,#2ca5b8 66%,#ab5c95 100%);
+
+    /* ---- Neutrals ---- */
+    --bg:#e9e7e4; --panel:#fbfaf8; --panel-2:#ffffff; --near-black:#090909;
+    --ink:#16151a; --ink-soft:#55534e; --ink-faint:#8a8880;
+    --line:#d6d4cf; --line-soft:#e6e4df; --hover:#f2efe9;
+
+    /* ---- Semantic roles mapped onto the bands ---- */
+    --accent:#2ca5b8; --accent-soft:#d8eff2; --accent-ink:#0e6f7d;   /* say / primary / positive */
+    --amber:#285f86;  --amber-soft:#e3edf4;                           /* watch  → blue band  */
+    --slate:#344982;  --slate-soft:#e7eaf3;                           /* quote  → indigo band */
+    --green:#2ca5b8;  --green-soft:#d8eff2;                           /* done   → teal band  */
+    --plum:#8a4a78;   --plum-soft:#f3e7ef;                            /* ask    → plum band  */
+    --say:var(--accent); --ask:var(--plum); --quote:var(--slate); --watch:var(--amber);
+
+    /* ---- Type ---- */
+    --font-body:'Barlow',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --font-head:'Oswald','Barlow',sans-serif;
+    --font-cond:'Barlow Semi Condensed','Barlow',sans-serif;
+
+    --radius:14px; --shadow:0 1px 3px rgba(20,18,15,.06),0 18px 40px -24px rgba(20,18,15,.28);
+    --maxw:920px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body);
+    line-height:1.6; font-size:17px; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px 80px;}
+
+  /* ---------- Band motif ---------- */
+  .bandset{display:flex;}
+  .bandset span{flex:1; display:block;}
+  .bandset span:nth-child(1){background:var(--band-1)}
+  .bandset span:nth-child(2){background:var(--band-2)}
+  .bandset span:nth-child(3){background:var(--band-3)}
+  .bandset span:nth-child(4){background:var(--band-4)}
+  .brandbar{height:6px;}
+
+  /* ---------- Header ---------- */
+  header.hero{max-width:var(--maxw); margin:0 auto; padding:30px 20px 14px;}
+  .wordmark{margin-bottom:22px;}
+  .wordmark .bandset{width:172px; gap:4px; margin-bottom:11px;}
+  .wordmark .bandset span{height:8px;}
+  .wordmark .mark{font-family:var(--font-head); font-weight:700; font-size:2.4rem; line-height:.85; color:var(--ink); letter-spacing:.01em;}
+  .wordmark .mark .lt{font-weight:500; letter-spacing:.14em;}
+  .wordmark .tag{font-family:var(--font-cond); font-weight:600; font-size:.72rem; letter-spacing:.3em; text-transform:uppercase; color:var(--ink-soft); margin-top:9px;}
+
+  .eyebrow{display:inline-flex; align-items:center; gap:11px; margin-bottom:12px;}
+  .eyebrow-bar{width:46px; height:8px; border-radius:4px; background:var(--band-grad);}
+  .eyebrow-txt{font-family:var(--font-cond); font-weight:600; letter-spacing:.2em; text-transform:uppercase; font-size:12.5px; color:var(--ink-soft);}
+
+  h1{font-family:var(--font-head); font-weight:700; font-size:2.5rem; line-height:1.04; margin:.3rem 0 .5rem; letter-spacing:.006em;}
+  .byline{color:var(--ink-soft); font-size:1rem; margin:0 0 4px;}
+  .byline b{color:var(--ink); font-weight:600;}
+  .oneliner{
+    margin:18px 0 0; padding:16px 18px; background:var(--panel); border:1px solid var(--line);
+    border-left:5px solid var(--accent); border-radius:12px; box-shadow:var(--shadow); font-size:1.02rem;
+  }
+  .oneliner strong{color:var(--accent-ink); font-weight:700;}
+
+  /* ---------- Sticky control bar ---------- */
+  .toolbar{
+    position:sticky; top:0; z-index:50; background:rgba(233,231,228,.9);
+    backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line);
+    margin-top:18px;
+  }
+  .toolbar-inner{max-width:var(--maxw); margin:0 auto; padding:10px 20px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .progress-wrap{flex:1 1 200px; min-width:160px;}
+  .progress-label{font-family:var(--font-cond); font-weight:500; letter-spacing:.04em; font-size:12px; color:var(--ink-soft); margin-bottom:3px; display:flex; justify-content:space-between;}
+  .bar{height:8px; background:var(--line); border-radius:99px; overflow:hidden;}
+  .bar>i{display:block; height:100%; width:0; background:var(--band-grad); transition:width .3s ease;}
+  .btn{
+    font-family:var(--font-cond); font-size:13.5px; font-weight:600; letter-spacing:.02em; cursor:pointer; border:1px solid var(--line);
+    background:var(--panel); color:var(--ink); padding:7px 13px; border-radius:9px; transition:.15s;
+  }
+  .btn:hover{border-color:var(--accent); color:var(--accent-ink);}
+  .btn:active{transform:translateY(1px);}
+
+  /* ---------- Jump nav ---------- */
+  nav.jump{margin:18px 0 8px; display:flex; flex-wrap:wrap; gap:8px;}
+  nav.jump a{
+    text-decoration:none; font-size:13px; font-weight:500; color:var(--ink-soft);
+    background:var(--panel); border:1px solid var(--line); padding:6px 11px; border-radius:999px; transition:.15s; display:flex; gap:7px; align-items:center;
+  }
+  nav.jump a:hover{color:var(--accent-ink); border-color:var(--accent);}
+  nav.jump a .t{color:var(--accent-ink); font-weight:700; font-variant-numeric:tabular-nums;}
+
+  /* ---------- Legend ---------- */
+  .legend{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin:14px 0 6px;
+    background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px;}
+  .legend div{font-size:13.5px; color:var(--ink-soft);} .legend b{color:var(--ink); font-weight:600;}
+
+  /* ---------- Section cards ---------- */
+  section.seg{
+    background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); margin:16px 0; overflow:hidden; scroll-margin-top:74px;
+    border-left:6px solid var(--accent);
+  }
+  section.seg[data-tone="prep"]{border-left-color:#9a938a}
+  section.seg[data-tone="a"]{border-left-color:var(--band-3)}
+  section.seg[data-tone="b"]{border-left-color:var(--band-2)}
+  section.seg[data-tone="c"]{border-left-color:var(--band-1)}
+  section.seg[data-tone="d"]{border-left-color:var(--band-4)}
+  section.seg[data-tone="e"]{border-left-color:var(--band-1)}
+  .seg-head{
+    display:flex; align-items:center; gap:14px; padding:16px 18px; cursor:pointer; user-select:none;
+  }
+  .seg-head:hover{background:var(--hover);}
+  .seg-num{
+    flex:none; width:34px; height:34px; border-radius:9px; display:grid; place-items:center;
+    font-family:var(--font-head); font-weight:700; font-size:16px; background:var(--ink); color:#fff;
+  }
+  .seg-title{flex:1; min-width:0;}
+  .seg-title h2{margin:0; font-family:var(--font-head); font-weight:600; font-size:1.3rem; line-height:1.18; letter-spacing:.01em;}
+  .seg-title h2 em{font-style:italic; font-weight:500; color:var(--ink-soft);}
+  .seg-meta{display:flex; gap:8px; align-items:center; margin-top:4px; flex-wrap:wrap;}
+  .time{font-family:var(--font-cond); font-size:12px; font-weight:700; letter-spacing:.04em; color:var(--accent-ink); background:var(--accent-soft); padding:2px 9px; border-radius:999px; font-variant-numeric:tabular-nums;}
+  .clock{font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
+  .chev{flex:none; color:var(--ink-faint); transition:transform .25s ease; font-size:20px; line-height:1;}
+  section.seg.open .chev{transform:rotate(90deg);}
+  .done-toggle{flex:none; display:flex; align-items:center; gap:6px; font-family:var(--font-cond); font-size:12px; letter-spacing:.04em; color:var(--ink-soft); cursor:pointer;}
+  .done-toggle input{width:17px; height:17px; accent-color:var(--accent); cursor:pointer;}
+
+  .seg-body{
+    max-height:0; overflow:hidden; transition:max-height .35s ease;
+  }
+  .seg-body-inner{padding:2px 20px 22px;}
+  section.seg.done .seg-num{background:var(--accent); color:#fff;}
+  section.seg.done .seg-head h2{text-decoration:line-through; text-decoration-color:var(--line);}
+
+  /* ---------- Cue blocks ---------- */
+  .cue{display:flex; gap:11px; padding:11px 13px; border-radius:11px; margin:10px 0; font-size:15.5px;}
+  .cue .ic{flex:none; font-size:17px; line-height:1.5;}
+  .cue.say{background:var(--accent-soft);}
+  .cue.ask{background:var(--plum-soft);}
+  .cue.watch{background:var(--amber-soft);}
+  .cue .lab{font-family:var(--font-cond); font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:11.5px; margin-right:3px; opacity:.9;}
+  .cue.say .lab{color:var(--accent-ink);} .cue.ask .lab{color:var(--plum);} .cue.watch .lab{color:var(--amber);}
+  .cue ul{margin:6px 0 0; padding-left:18px;} .cue li{margin:3px 0;}
+
+  blockquote.q{
+    margin:12px 0; padding:12px 16px; border-left:4px solid var(--slate); background:var(--slate-soft);
+    border-radius:0 10px 10px 0; font-style:italic; color:#2c3444; font-size:15.5px;
+  }
+  blockquote.q .src{display:block; font-style:normal; font-family:var(--font-cond); font-size:12px; color:var(--slate); margin-top:5px; letter-spacing:.03em;}
+
+  h3.mini{font-family:var(--font-body); font-weight:700; font-size:1.02rem; margin:20px 0 8px; color:var(--ink); display:flex; align-items:center; gap:8px;}
+  h3.mini::before{content:""; flex:none; width:8px; height:8px; border-radius:50%; background:var(--accent);}
+  h3.mini em{font-style:italic; color:var(--ink-soft); font-weight:600;}
+
+  p.note{color:var(--ink-soft); font-size:14.5px; margin:8px 0;}
+
+  /* ---------- Cheat cards ---------- */
+  .cards{display:grid; gap:12px; margin:12px 0;}
+  .cards.three{grid-template-columns:repeat(auto-fit,minmax(215px,1fr));}
+  .cards.six{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));}
+  .cards.eight{grid-template-columns:repeat(auto-fit,minmax(215px,1fr));}
+  .card{border:1px solid var(--line); border-radius:12px; padding:13px 14px; background:var(--panel-2);}
+  .card .cap{font-family:var(--font-cond); font-size:11px; text-transform:uppercase; letter-spacing:.1em; font-weight:700; margin-bottom:3px;}
+  .card h4{margin:0 0 6px; font-family:var(--font-head); font-weight:600; font-size:1.08rem; letter-spacing:.01em;}
+  .card p{margin:4px 0; font-size:13.6px; color:var(--ink-soft);}
+  .card .flag{color:var(--plum);}
+  .card .good{color:var(--accent-ink);}
+  .card.porous{border-top:4px solid var(--band-2);} .card.porous .cap{color:#285f86;}
+  .card.rigid{border-top:4px solid var(--band-1);} .card.rigid .cap{color:var(--band-1);}
+  .card.healthy{border-top:4px solid var(--band-3);} .card.healthy .cap{color:var(--accent-ink);}
+  .card .stepn{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:7px; background:var(--accent-soft); color:var(--accent-ink); font-family:var(--font-head); font-weight:700; font-size:15px; margin-bottom:6px;}
+
+  /* vs table */
+  .vs{display:grid; gap:8px; margin:10px 0;}
+  .vs .row{display:grid; grid-template-columns:130px 1fr; gap:12px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--panel-2); align-items:start;}
+  .vs .row .k{font-weight:700; font-size:14px;}
+  .vs .row.is-b{background:var(--accent-soft); border-color:#a9dbe3;}
+  .vs .row .k .tag{display:block; font-family:var(--font-cond); font-size:11px; font-weight:600; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em;}
+  .vs .row p{margin:0; font-size:14px; color:var(--ink-soft);}
+  .vs .row.is-b .k{color:var(--accent-ink);}
+  .vs .row.is-b p{color:#12484f;}
+
+  /* ---------- Scripts ---------- */
+  .script{border:1px solid var(--line); border-radius:11px; padding:12px 13px; margin:9px 0; background:var(--panel-2); display:flex; gap:12px; align-items:flex-start;}
+  .script .stxt{flex:1;}
+  .script .cap{font-family:var(--font-cond); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--plum); margin-bottom:3px;}
+  .script .line{font-size:15.5px;}
+  .script .copy{flex:none; font-family:var(--font-cond); font-size:12px; font-weight:700; letter-spacing:.04em; border:1px solid var(--line); background:#fff; color:var(--ink-soft); padding:5px 11px; border-radius:8px; cursor:pointer; transition:.15s;}
+  .script .copy:hover{border-color:var(--plum); color:var(--plum);}
+  .script .copy.copied{background:var(--accent-soft); border-color:var(--accent); color:var(--accent-ink);}
+
+  /* ---------- Footer ---------- */
+  footer{max-width:var(--maxw); margin:40px auto 0; background:var(--near-black); color:#cfd6e2; border-radius:var(--radius); overflow:hidden; font-size:13px;}
+  footer .foot-top{height:6px;}
+  footer .foot-inner{padding:28px 30px 30px;}
+  footer .foot-mark{font-family:var(--font-head); font-weight:700; font-size:1.7rem; line-height:.9; color:#fff;}
+  footer .foot-mark .lt{font-weight:500; letter-spacing:.14em;}
+  footer .foot-tag{font-family:var(--font-cond); font-weight:600; font-size:.66rem; letter-spacing:.3em; text-transform:uppercase; color:#cfd6e2; margin:9px 0 18px;}
+  footer .foot-notes p{color:#a7a5a0; margin:9px 0; line-height:1.7;}
+  footer .foot-notes b{color:#e9e7e4; font-weight:600;}
+  footer .foot-notes i{color:#c9c7c2;}
+  footer .foot-brand-note{font-family:var(--font-cond); letter-spacing:.04em; color:#8a8880 !important; margin-top:16px !important; border-top:1px solid #26251f; padding-top:14px;}
+  footer .foot-brand-note span{color:var(--accent); font-weight:600;}
+
+  /* ---------- Print ---------- */
+  @media print{
+    .toolbar,nav.jump,.chev,.done-toggle,.script .copy,.btn,.brandbar{display:none !important;}
+    body{background:#fff; font-size:12px;}
+    section.seg{box-shadow:none; break-inside:avoid; border:1px solid #ccc;}
+    .seg-body{max-height:none !important;}
+    .seg-body-inner{padding-top:6px;}
+    header.hero{padding-top:0;}
+    a{color:inherit; text-decoration:none;}
+    footer{background:#fff !important; color:#000 !important; border:1px solid #ccc;}
+    footer .foot-mark{color:#000 !important;}
+    footer .foot-tag{color:#333 !important;}
+    footer .foot-notes p, footer .foot-notes i{color:#333 !important;}
+    footer .foot-notes b{color:#000 !important;}
+    footer .foot-brand-note{color:#333 !important;}
+  }
+  @media (max-width:560px){
+    body{font-size:16px;} h1{font-size:1.9rem;}
+    .wordmark .mark{font-size:2rem;}
+    .vs .row{grid-template-columns:1fr;}
+    .seg-head{gap:10px; padding:14px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="brandbar bandset"><span></span><span></span><span></span><span></span></div>
+
+<header class="hero">
+  <div class="wordmark">
+    <div class="bandset"><span></span><span></span><span></span><span></span></div>
+    <div class="mark">ESTUS <span class="lt">HEALTH</span></div>
+    <div class="tag">Occupational Therapy</div>
+  </div>
+  <div class="eyebrow"><span class="eyebrow-bar"></span><span class="eyebrow-txt">Facilitator Run-Sheet · Live Webinar</span></div>
+  <h1>Boundaries — Live Webinar Companion</h1>
+  <p class="byline">Hosted by <b>Liam</b> &amp; <b>Nic Voican</b> · ~60-minute session template · built from the "Solved" boundaries research</p>
+  <div class="oneliner">
+    <strong>The one-liner (post this in chat):</strong> Boundaries are <em>self-defined limits that protect your core needs and values across the domains of your life.</em>
+  </div>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <div class="progress-wrap">
+      <div class="progress-label"><span>Session progress</span><span id="progTxt">0 / 10</span></div>
+      <div class="bar"><i id="progBar"></i></div>
+    </div>
+    <button class="btn" id="expandAll">Expand all</button>
+    <button class="btn" id="collapseAll">Collapse all</button>
+    <button class="btn" onclick="window.print()">🖨 Print</button>
+    <button class="btn" id="resetBtn" title="Clear ticks & open state">Reset</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <nav class="jump" id="jumpNav"><!-- filled by JS --></nav>
+
+  <div class="legend">
+    <div><b>🎤 Say</b> — cover / talking points</div>
+    <div><b>💬 Ask</b> — audience prompt (use chat)</div>
+    <div><b>🗣 Quote</b> — drop-in line</div>
+    <div><b>👀 Watch for</b> — facilitator note</div>
+    <div><b>🃏 Card</b> — glance-able cheat card</div>
+    <div><b>⏱ Time</b> — running order, adjust freely</div>
+  </div>
+
+  <!-- ============ PREP ============ -->
+  <section class="seg" data-tone="prep" id="prep">
+    <div class="seg-head">
+      <div class="seg-num">0</div>
+      <div class="seg-title">
+        <h2>Pre-flight</h2>
+        <div class="seg-meta"><span class="time">T–10 min</span><span class="clock">before you go live</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Set up</span>
+        <ul>
+          <li>Test audio, video, and screen-share. Keep this sheet open on a second screen.</li>
+          <li>Decide who leads each segment — suggested: <b>alternate</b> so energy stays fresh.</li>
+          <li>Have the <b>one-liner</b> and the <a href="#s8">Saying-No scripts</a> ready to paste into chat.</li>
+          <li>Open the cheat cards you'll screen-share: the <a href="#s3">Continuum</a>, the <a href="#s5">6 Steps</a>, the <a href="#s6">8 Domains</a>.</li>
+        </ul></div></div>
+      <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Frame</span> Open by telling people this is <b>interactive</b> — you'll ask them to type in the chat throughout. Low pressure, no cameras required.</div></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 1 ============ -->
+  <section class="seg" data-tone="a" id="s1">
+    <div class="seg-head">
+      <div class="seg-num">1</div>
+      <div class="seg-title">
+        <h2>Welcome &amp; the hook</h2>
+        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:00 – 0:05</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span>
+        <ul>
+          <li>Welcome + quick intros. One sentence each: <i>why boundaries matter to you</i>.</li>
+          <li>The promise: "By the end, you'll be able to <b>name where you need a boundary</b> and have the <b>words to set it</b>."</li>
+          <li>Normalize it: almost everyone finds this hard. That's the point of tonight.</li>
+        </ul></div></div>
+      <blockquote class="q">"A lot of people think they know what boundaries are — but I'm not so sure that they do."<span class="src">— framing line, "Solved" boundaries episode</span></blockquote>
+      <div class="cue ask"><span class="ic">💬</span><div><span class="lab">Ask</span> "In <b>one word</b>, what does 'boundary' bring up for you?" — let the chat fill up, read a few back.</div></div>
+      <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Watch for</span> Keep it warm, not lecture-y. Don't rush the intros — this is where trust is set.</div></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 2 ============ -->
+  <section class="seg" data-tone="a" id="s2">
+    <div class="seg-head">
+      <div class="seg-num">2</div>
+      <div class="seg-title">
+        <h2>What boundaries <em>are</em> — and what they're not</h2>
+        <div class="seg-meta"><span class="time">8 min</span><span class="clock">0:05 – 0:13</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span>
+        <ul>
+          <li>Core definition again: <b>self-defined limits that protect your core needs &amp; values, across every domain of life.</b></li>
+          <li>It's a <b>modern term</b> — only common in the last ~20–25 years — but with old philosophical roots.</li>
+          <li>The big reframe: a boundary is about <b>what YOU do</b>, not about controlling them. Think <b>"If X, then I will Y."</b></li>
+        </ul></div></div>
+
+      <h3 class="mini">🃏 Cheat card — Boundary vs. its 4 look-alikes</h3>
+      <div class="vs">
+        <div class="row"><div class="k">Value<span class="tag">the "why"</span></div><p>The enduring principle underneath (health, honesty, family). Boundaries protect values — a bad value makes a bad boundary.</p></div>
+        <div class="row"><div class="k">Rule<span class="tag">controls others</span></div><p>"You may not do that." An attempt to control someone else — often <b>violates their autonomy</b>. Not a boundary.</p></div>
+        <div class="row"><div class="k">Preference<span class="tag">negotiable</span></div><p>Low-stakes, tradeable. "I'd prefer Thai tonight." Nice to have, easy to flex.</p></div>
+        <div class="row"><div class="k">Request<span class="tag">asks them</span></div><p>"Can you pick me up?" You're asking for a behavior — they can say no.</p></div>
+        <div class="row is-b"><div class="k">Boundary<span class="tag">self-defined + your action</span></div><p><b>"If you start yelling at me, I'll leave and go home."</b> You define the limit and <b>your own</b> response to it.</p></div>
+      </div>
+
+      <blockquote class="q">"A good intention is not a boundary. A boundary you can't enforce with any clarity is just a suggestion — and people treat suggestions like suggestions. Eventually they start ignoring it."<span class="src">— on why vague boundaries fail</span></blockquote>
+
+      <div class="cue ask"><span class="ic">💬</span><div><span class="lab">Ask</span> "Drop a boundary you've tried to set — we'll sort one or two live: was it actually a <b>rule</b>, a <b>request</b>, or a real boundary?"</div></div>
+      <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Watch for</span> The #1 confusion is <b>rule vs. boundary</b>. When someone says "I told them they can't…", gently flip it: <i>"When you do X, I will Y."</i></div></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 3 ============ -->
+  <section class="seg" data-tone="c" id="s3">
+    <div class="seg-head">
+      <div class="seg-num">3</div>
+      <div class="seg-title">
+        <h2>The boundary continuum: porous → healthy → rigid</h2>
+        <div class="seg-meta"><span class="time">6 min</span><span class="clock">0:13 – 0:19</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> It's a <b>spectrum, not a personality type</b>. Most of us are porous in some areas and rigid in others. The goal is the middle — <b>clear yet flexible</b>.</div></div>
+
+      <h3 class="mini">🃏 Cheat card — the three settings</h3>
+      <div class="cards three">
+        <div class="card porous">
+          <div class="cap">Too open</div><h4>Porous</h4>
+          <p>Can't say "no", over-discloses, over-flexible, makes excuses for disrespect.</p>
+          <p class="flag">→ Enmeshment, emotional contagion, loss of self-definition.</p>
+        </div>
+        <div class="card healthy">
+          <div class="cap">The target</div><h4>Healthy</h4>
+          <p>Clear expectations, protects core values, stated assertively &amp; consistently — <b>and</b> adjusts to context.</p>
+          <p class="good">→ Less conflict, mutual respect, trust.</p>
+        </div>
+        <div class="card rigid">
+          <div class="cap">Too closed</div><h4>Rigid</h4>
+          <p>Keeps everyone at arm's length, refuses help, uses ghosting as a shield.</p>
+          <p class="flag">→ Isolation, missed intimacy &amp; connection.</p>
+        </div>
+      </div>
+
+      <blockquote class="q">"I'm not responsible for your happiness — <b>yet</b> I do care about it." That "yet" is the flexibility. Clear line, room to adjust.<span class="src">— example of a healthy, flexible boundary</span></blockquote>
+
+      <div class="cue ask"><span class="ic">💬</span><div><span class="lab">Ask</span> "Which way do you lean — more <b>porous</b> or more <b>rigid</b>? Does it flip between work and home?"</div></div>
+      <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Watch for</span> Don't shame the porous crowd. And name the trap: people assume <b>rigid = "good at boundaries."</b> It's still a boundary problem.</div></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 4 ============ -->
+  <section class="seg" data-tone="b" id="s4">
+    <div class="seg-head">
+      <div class="seg-num">4</div>
+      <div class="seg-title">
+        <h2>Why boundaries matter (the "it's not selfish" beat)</h2>
+        <div class="seg-meta"><span class="time">6 min</span><span class="clock">0:19 – 0:25</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say — keep it light, ~90 sec</span>
+        <ul>
+          <li><b>Philosophy.</b> Kant: true freedom is <b>self-mastery</b>, not indulging every craving. Aristotle: virtue is the <b>golden mean</b> — the balance between too much (porous) and too little (rigid).</li>
+          <li><b>Psychology.</b> Freud: the <b>ego</b> forms at the boundary between self and world. Good boundaries are a <b>lagging indicator of maturity</b> and a healthy identity.</li>
+          <li><b>Payoff.</b> Less conflict, better emotional regulation, more respect &amp; trust from others, protected energy, a more authentic life.</li>
+        </ul></div></div>
+
+      <blockquote class="q">"Boundaries are the ultimate act of love — not just for your own health and safety, but for the other person's. They'll never learn to stand on their own two feet as long as they're dependent on you."<span class="src">— the reframe for anyone who feels guilty</span></blockquote>
+
+      <div class="cue ask"><span class="ic">💬</span><div><span class="lab">Ask</span> "One thing good boundaries would <b>free up energy for</b> — go."</div></div>
+      <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Watch for</span> Don't over-teach the philosophy. It's a 60–90 second "here's why this isn't selfish" — then move.</div></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 5 ============ -->
+  <section class="seg" data-tone="a" id="s5">
+    <div class="seg-head">
+      <div class="seg-num">5</div>
+      <div class="seg-title">
+        <h2>The 6 steps to setting a boundary <em>(the core)</em></h2>
+        <div class="seg-meta"><span class="time">18 min</span><span class="clock">0:25 – 0:43</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <p class="note">This is the heart of the session — spend the most time here, especially on <b>Awareness</b>, <b>State clearly</b>, and <b>Guilt</b>.</p>
+
+      <h3 class="mini">🃏 Cheat card — the 6 steps at a glance</h3>
+      <div class="cards six">
+        <div class="card"><span class="stepn">1</span><h4>Awareness</h4><p>Find where you need one.</p></div>
+        <div class="card"><span class="stepn">2</span><h4>State clearly</h4><p>Assertive, not aggressive.</p></div>
+        <div class="card"><span class="stepn">3</span><h4>Consistency</h4><p>Enforce it — stakes are real.</p></div>
+        <div class="card"><span class="stepn">4</span><h4>Anticipate pushback</h4><p>Plan your response.</p></div>
+        <div class="card"><span class="stepn">5</span><h4>Adapt</h4><p>Revise; find the mean.</p></div>
+        <div class="card"><span class="stepn">6</span><h4>Manage guilt</h4><p>Expect it; don't obey it.</p></div>
+      </div>
+
+      <h3 class="mini">1 · Awareness — where <em>is</em> the boundary missing?</h3>
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> The hardest step, especially if you grew up without boundaries. Three red-flag signals:
+        <ul>
+          <li><b>Resentment</b> — what do you keep griping about, muttering under your breath, or blaming others for?</li>
+          <li><b>Ambiguity</b> — messy, never-discussed areas (classic: <i>merged finances no one actually talked about</i>).</li>
+          <li><b>Compulsion / energy drain</b> — the thing you keep doing while thinking "why do I keep doing this?"</li>
+        </ul></div></div>
+
+      <h3 class="mini">2 · State it clearly — assertive, not aggressive</h3>
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> Use the non-violent-communication formula. It hands them <b>their</b> agency while you keep <b>yours</b>:</div></div>
+      <blockquote class="q"><b>"When you [do X], I feel [Y], and I need [Z]."</b><br>"It's just a repackaging of the same experience — but so much more effective than 'stop being a dick.'"<span class="src">— NVC framing</span></blockquote>
+
+      <h3 class="mini">3 · Consistency — this is where trust is built</h3>
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> "It's almost a law of the universe: <b>any boundary that's defined will be tested.</b>" Real boundaries have stakes — if you don't follow through, it's worth nothing. Often it takes a few enforcements before it sticks.</div></div>
+
+      <h3 class="mini">4 · Anticipate pushback</h3>
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> People without their own boundaries resist yours: <b>guilt trips, picking fights, ghosting.</b> For them it can feel easier to manipulate you than to adjust. Decide your response <b>in advance</b>.</div></div>
+
+      <h3 class="mini">5 · Adapt — the golden mean, take two</h3>
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> No boundary is perfect on the first try — you'll overshoot (too rigid) or undershoot (too porous) and revise. That's normal. Just <b>communicate the change explicitly</b>, and <b>define exceptions up front</b> ("no calls after 10pm — unless it's a family emergency").</div></div>
+
+      <h3 class="mini">6 · Manage the guilt</h3>
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> Expect two things: they won't like it, and <b>you'll feel guilty.</b> That's because you're cutting off a <b>supply</b> of validation they'd come to rely on. <b>Guilt is not proof you did something wrong.</b> You may lose a few relationships — you're still better off.</div></div>
+
+      <div class="cue ask"><span class="ic">💬</span><div><span class="lab">Ask</span> "Which of the 6 is <b>hardest</b> for you? Type the number 1–6." Read the pattern back to the room.</div></div>
+      <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Watch for</span> If time is short, protect steps <b>1, 2, and 6</b>. Steps 3–5 can be summarized fast.</div></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 6 ============ -->
+  <section class="seg" data-tone="d" id="s6">
+    <div class="seg-head">
+      <div class="seg-num">6</div>
+      <div class="seg-title">
+        <h2>The 8 domains — a fast self-audit</h2>
+        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:43 – 0:48</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> Boundaries live across <b>all</b> of these. Most people are strong in some and nearly invisible in others. Run it as a quick map, not a deep dive.</div></div>
+
+      <h3 class="mini">🃏 Cheat card — the 8 domains</h3>
+      <div class="cards eight">
+        <div class="card"><div class="cap" style="color:var(--slate)">1 · Physical</div><h4>Space &amp; touch</h4><p><span class="flag">Flag:</span> uncomfortable touch, your space used without asking.</p><p><span class="good">Healthy:</span> "Please don't make her hug anyone."</p></div>
+        <div class="card"><div class="cap" style="color:var(--slate)">2 · Relational</div><h4>People-pleasing</h4><p><span class="flag">Flag:</span> chronic resentment, feeling like a doormat.</p><p><span class="good">Healthy:</span> notice the <b>pause before you say yes</b>.</p></div>
+        <div class="card"><div class="cap" style="color:var(--slate)">3 · Emotional</div><h4>Your feelings vs theirs</h4><p><span class="flag">Flag:</span> feeling responsible for someone's happiness.</p><p><span class="good">Healthy:</span> "I care, but I'm not responsible for how you feel."</p></div>
+        <div class="card"><div class="cap" style="color:var(--slate)">4 · Time</div><h4>Where your hours go</h4><p><span class="flag">Flag:</span> burnout, "time debt", always available.</p><p><span class="good">Healthy:</span> "No work email after I leave the office."</p></div>
+        <div class="card"><div class="cap" style="color:var(--slate)">5 · Identity</div><h4>Being your true self</h4><p><span class="flag">Flag:</span> masking, "a different person around family".</p><p><span class="good">Healthy:</span> "That won't work for me anymore."</p></div>
+        <div class="card"><div class="cap" style="color:var(--slate)">6 · Intellectual</div><h4>Ideas &amp; debate</h4><p><span class="flag">Flag:</span> adopting others' views to avoid conflict.</p><p><span class="good">Healthy:</span> choose which debates are worth your energy.</p></div>
+        <div class="card"><div class="cap" style="color:var(--slate)">7 · Digital</div><h4>Devices &amp; availability</h4><p><span class="flag">Flag:</span> anxiety from being always-on, 2am emails.</p><p><span class="good">Healthy:</span> Do-Not-Disturb at 7pm; "I'm a slow texter."</p></div>
+        <div class="card"><div class="cap" style="color:var(--slate)">8 · Financial</div><h4>Money &amp; obligations</h4><p><span class="flag">Flag:</span> merged-vs-separate fights, guilt loans.</p><p><span class="good">Healthy:</span> explicit "who pays for what" conversation.</p></div>
+      </div>
+
+      <div class="cue ask"><span class="ic">💬</span><div><span class="lab">Ask</span> "Which domain is your <b>weakest</b>? Type the number." Great low-stakes participation moment.</div></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 7 ============ -->
+  <section class="seg" data-tone="e" id="s7">
+    <div class="seg-head">
+      <div class="seg-num">7</div>
+      <div class="seg-title">
+        <h2>Why it's so hard — toxic dynamics &amp; barriers</h2>
+        <div class="seg-meta"><span class="time">7 min</span><span class="clock">0:48 – 0:55</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> Boundaries don't get set inside <b>enmeshed / codependent</b> relationships — because the boundary interrupts the dynamic that both people are feeding on. Picture it: <b>one person walks room to room setting fires, the other sprints behind with a fire hose.</b> Both get to feel needed.</div></div>
+
+      <h3 class="mini">🃏 Cheat card — the 3 self-reinforcing patterns</h3>
+      <div class="cards three">
+        <div class="card"><div class="cap" style="color:var(--plum)">Pattern 1</div><h4>Victim ↔ Savior</h4><p>One is always getting hurt; the other always rescues. Feel victimized → get attention → find more reasons to be a victim.</p></div>
+        <div class="card"><div class="cap" style="color:var(--plum)">Pattern 2</div><h4>Breaker ↔ Fixer</h4><p>Nothing's ever good enough; the other keeps trying to make it good enough. Unhappiness gets rewarded.</p></div>
+        <div class="card"><div class="cap" style="color:var(--plum)">Pattern 3</div><h4>Runner ↔ Chaser</h4><p>One pulls away; the other chases harder to win them back. The chase itself becomes the relationship.</p></div>
+      </div>
+
+      <blockquote class="q">Set the boundary and one of two things happens: <b>the relationship heals, or it ends</b> — and in both cases, you're better off.<span class="src">— the coach's bottom line</span></blockquote>
+
+      <h3 class="mini">Barriers — why it's hard for <em>you</em> specifically</h3>
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say (name them, don't dwell)</span>
+        <ul>
+          <li><b>Failed individuation</b> — never fully separated your identity from family.</li>
+          <li><b>Insecure attachment</b> — anxious styles fear the loss, so they fold.</li>
+          <li><b>High agreeableness</b> — pulls you porous (peace at any cost).</li>
+          <li><b>High conscientiousness</b> — can pull you rigid / over-responsible.</li>
+          <li><b>Stress &amp; energy depletion</b> — willpower's gone, so the line slips.</li>
+        </ul></div></div>
+
+      <div class="cue ask"><span class="ic">💬</span><div><span class="lab">Ask</span> "Recognize any of these patterns? No need to name names — just a yes/no in chat."</div></div>
+      <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Watch for</span> Sensitive territory. <b>Normalize, don't diagnose.</b> Offer the reframe, then move to the practical scripts.</div></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 8 ============ -->
+  <section class="seg" data-tone="e" id="s8">
+    <div class="seg-head">
+      <div class="seg-num">8</div>
+      <div class="seg-title">
+        <h2>Scripts: saying no without guilt or drama</h2>
+        <div class="seg-meta"><span class="time">3 min + takeaway</span><span class="clock">0:55 – 0:58</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> "You don't need the perfect words — you need <b>a few you can reuse</b>." Paste these into the chat as the takeaway. Hit <b>Copy</b> to grab any line.</div></div>
+
+      <div class="script"><div class="stxt"><div class="cap">The core formula (NVC)</div><div class="line">"When you <b>[do X]</b>, I feel <b>[Y]</b>. What I need is <b>[Z]</b>."</div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+      <div class="script"><div class="stxt"><div class="cap">The clean no</div><div class="line">"Thanks for thinking of me — I'm not able to take this on."</div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+      <div class="script"><div class="stxt"><div class="cap">No, without a reason</div><div class="line">"That doesn't work for me."</div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+      <div class="script"><div class="stxt"><div class="cap">Buy the pause</div><div class="line">"Let me check and get back to you." <span style="color:var(--ink-soft)">(protects the pause before an automatic yes)</span></div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+      <div class="script"><div class="stxt"><div class="cap">The if-then boundary</div><div class="line">"If <b>[behavior]</b> keeps happening, I'll <b>[your action]</b>."</div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+      <div class="script"><div class="stxt"><div class="cap">Family / holidays</div><div class="line">"That won't work for me anymore — but here's what I <i>can</i> do…"</div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+      <div class="script"><div class="stxt"><div class="cap">Work / time</div><div class="line">"I don't check email after 6 — I'll reply first thing tomorrow."</div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+      <div class="script"><div class="stxt"><div class="cap">Money</div><div class="line">"I'm not able to lend money, but I'm happy to help you think it through."</div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+      <div class="script"><div class="stxt"><div class="cap">Deflect the guilt-trip</div><div class="line">"I understand you're disappointed — and my answer is still no."</div></div><button class="copy" onclick="copyLine(this)">Copy</button></div>
+    </div></div>
+  </section>
+
+  <!-- ============ 9 ============ -->
+  <section class="seg" data-tone="d" id="s9">
+    <div class="seg-head">
+      <div class="seg-num">9</div>
+      <div class="seg-title">
+        <h2>Q&amp;A &amp; close</h2>
+        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:58 – 1:00</span></div>
+      </div>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
+      <div class="chev">›</div>
+    </div>
+    <div class="seg-body"><div class="seg-body-inner">
+      <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span>
+        <ul>
+          <li>Recap the one-liner + the <b>6 steps</b> in a single breath.</li>
+          <li>Take 2–3 questions from the chat.</li>
+          <li><b>The one challenge:</b> "Before you log off, pick <b>ONE</b> boundary and write its <b>if-then</b> in the chat."</li>
+          <li>Thank them. Point to further listening: the "Solved" boundaries episode &amp; the Mel Robbins "say no without guilt" episode.</li>
+        </ul></div></div>
+      <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Watch for</span> End on <b>action, not theory</b>. The if-then commitment in chat is what makes it stick.</div></div>
+    </div></div>
+  </section>
+
+  <footer>
+    <div class="foot-top bandset"><span></span><span></span><span></span><span></span></div>
+    <div class="foot-inner">
+      <div class="foot-mark">ESTUS <span class="lt">HEALTH</span></div>
+      <div class="foot-tag">Occupational Therapy</div>
+      <div class="foot-notes">
+        <p><b>Built from your sources:</b> the "Solved" boundaries podcast transcript (Mark Manson &amp; Drew Birnie), <i>The Architecture of Autonomy</i> boundary-continuum table, and the <i>Healthy Boundary Concepts &amp; Indicators</i> domain sheet. Referenced episodes: <i>How to Set (and Keep) Your Boundaries This Year, Solved</i> and <i>Start Putting Yourself First — The Mel Robbins Podcast</i>.</p>
+        <p>Tip: timings are a template — drag your attention where the room needs it. Your ticks and open sections are saved in this browser.</p>
+        <p class="foot-brand-note">Facilitator companion for Estus Health · <span>www.estushealth.com</span></p>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var KEY="estus_boundaries_runsheet_v1";
+  var store={open:{},done:{}};
+  try{ var raw=localStorage.getItem(KEY); if(raw){ store=JSON.parse(raw)||store; store.open=store.open||{}; store.done=store.done||{}; } }catch(e){}
+  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} }
+
+  var segs=Array.prototype.slice.call(document.querySelectorAll("section.seg"));
+
+  // Build jump nav
+  var nav=document.getElementById("jumpNav");
+  segs.forEach(function(s){
+    var id=s.id;
+    var num=s.querySelector(".seg-num").textContent.trim();
+    var title=s.querySelector(".seg-title h2").textContent.replace(/\s+/g," ").trim();
+    var timeEl=s.querySelector(".time");
+    var time=timeEl?timeEl.textContent.trim():"";
+    var a=document.createElement("a");
+    a.href="#"+id;
+    a.innerHTML='<span class="t">'+num+'</span> '+title.split("—")[0].split("(")[0].trim()+(time?' · <span class="t">'+time+'</span>':'');
+    nav.appendChild(a);
+  });
+
+  function setOpen(s,open){
+    var body=s.querySelector(".seg-body");
+    if(open){ s.classList.add("open"); body.style.maxHeight=body.scrollHeight+"px"; }
+    else{ s.classList.remove("open"); body.style.maxHeight="0px"; }
+    store.open[s.id]=open;
+  }
+  // recompute heights on resize
+  var rt;
+  window.addEventListener("resize",function(){
+    clearTimeout(rt);
+    rt=setTimeout(function(){
+      segs.forEach(function(s){ if(s.classList.contains("open")){ s.querySelector(".seg-body").style.maxHeight=s.querySelector(".seg-body").scrollHeight+"px"; } });
+    },120);
+  });
+
+  segs.forEach(function(s){
+    // restore
+    var opened = store.open.hasOwnProperty(s.id)? store.open[s.id] : true; // default open
+    setOpen(s,opened);
+    var done = !!store.done[s.id];
+    var ck=s.querySelector(".doneCk");
+    if(done){ s.classList.add("done"); if(ck) ck.checked=true; }
+
+    // header toggles collapse
+    s.querySelector(".seg-head").addEventListener("click",function(){
+      setOpen(s, !s.classList.contains("open"));
+      save();
+    });
+    // done checkbox
+    if(ck){
+      ck.addEventListener("change",function(){
+        if(ck.checked){ s.classList.add("done"); store.done[s.id]=true; }
+        else{ s.classList.remove("done"); store.done[s.id]=false; }
+        save(); updateProgress();
+      });
+    }
+  });
+
+  function updateProgress(){
+    var total=segs.length;
+    var d=segs.filter(function(s){return s.classList.contains("done");}).length;
+    document.getElementById("progTxt").textContent=d+" / "+total;
+    document.getElementById("progBar").style.width=(total? (d/total*100):0)+"%";
+  }
+  updateProgress();
+
+  document.getElementById("expandAll").addEventListener("click",function(){ segs.forEach(function(s){setOpen(s,true);}); save(); });
+  document.getElementById("collapseAll").addEventListener("click",function(){ segs.forEach(function(s){setOpen(s,false);}); save(); });
+  document.getElementById("resetBtn").addEventListener("click",function(){
+    store={open:{},done:{}}; save();
+    segs.forEach(function(s){ s.classList.remove("done"); var ck=s.querySelector(".doneCk"); if(ck)ck.checked=false; setOpen(s,true); });
+    updateProgress();
+  });
+
+  // smooth-scroll nav also opens target
+  nav.addEventListener("click",function(e){
+    var a=e.target.closest("a"); if(!a) return;
+    var t=document.querySelector(a.getAttribute("href"));
+    if(t && !t.classList.contains("open")){ setOpen(t,true); save(); }
+  });
+
+  // copy buttons
+  window.copyLine=function(btn){
+    var line=btn.parentNode.querySelector(".line");
+    var text=(line?line.textContent:"").replace(/\s+/g," ").replace(/\s*\(.*?\)\s*$/,"").trim();
+    function ok(){ var old=btn.textContent; btn.textContent="Copied ✓"; btn.classList.add("copied"); setTimeout(function(){btn.textContent=old||"Copy"; btn.classList.remove("copied");},1400); }
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(ok,function(){fallback(text,ok);}); }
+    else{ fallback(text,ok); }
+  };
+  function fallback(text,ok){
+    try{ var ta=document.createElement("textarea"); ta.value=text; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); ok(); }catch(e){}
+  }
+})();
+</script>
+</body>
+</html>
