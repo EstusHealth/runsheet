@@ -1,12 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Boundaries Webinar — Facilitator Run-Sheet · Estus Health</title>
-<meta name="description" content="Estus Health facilitator run-sheet for the live Boundaries webinar — an ADHD-friendly companion with cues, cheat cards and copy-ready scripts.">
-<meta name="theme-color" content="#090909">
+<meta name="description" content="Estus Health facilitator companion for the live Boundaries webinar — run-of-show timers, cue cards, chat drops and copy-ready scripts.">
+<meta name="theme-color" content="#e9e7e4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#090909" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Boundaries — Live Webinar Companion · Estus Health">
+<meta property="og:description" content="Facilitator run-sheet with live session timers, cue cards and copy-ready scripts.">
+<meta property="og:image" content="og.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23090909'/%3E%3Crect x='6' y='8' width='20' height='4' fill='%23344982'/%3E%3Crect x='6' y='13' width='20' height='4' fill='%232f6f9e'/%3E%3Crect x='6' y='18' width='20' height='4' fill='%232ca5b8'/%3E%3Crect x='6' y='23' width='20' height='4' fill='%23ab5c95'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<script>
+/* set theme before first paint to avoid a flash */
+(function(){var t="light";try{var s=JSON.parse(localStorage.getItem("estus_boundaries_runsheet_v2")||"{}");t=s.theme||(window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");}catch(e){}document.documentElement.setAttribute("data-theme",t);})();
+</script>
 <link rel="preload" href="fonts/Oswald-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/Barlow-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="fonts/fonts.css">
@@ -16,10 +28,11 @@
     --band-1:#344982; --band-2:#2f6f9e; --band-3:#2ca5b8; --band-4:#ab5c95;
     --band-grad:linear-gradient(90deg,#344982 0%,#2f6f9e 34%,#2ca5b8 66%,#ab5c95 100%);
 
-    /* ---- Neutrals ---- */
+    /* ---- Neutrals (light) ---- */
     --bg:#e9e7e4; --panel:#fbfaf8; --panel-2:#ffffff; --near-black:#090909;
     --ink:#16151a; --ink-soft:#55534e; --ink-faint:#8a8880;
     --line:#d6d4cf; --line-soft:#e6e4df; --hover:#f2efe9;
+    --toolbar-bg:rgba(233,231,228,.9);
 
     /* ---- Semantic roles mapped onto the bands ---- */
     --accent:#2ca5b8; --accent-soft:#d8eff2; --accent-ink:#0e6f7d;   /* say / primary / positive */
@@ -28,6 +41,8 @@
     --green:#2ca5b8;  --green-soft:#d8eff2;                           /* done   → teal band  */
     --plum:#8a4a78;   --plum-soft:#f3e7ef;                            /* ask    → plum band  */
     --say:var(--accent); --ask:var(--plum); --quote:var(--slate); --watch:var(--amber);
+    --quote-ink:#2c3444; --accent-strong-ink:#12484f;
+    --overlay-bg:rgba(9,9,9,.55);
 
     /* ---- Type ---- */
     --font-body:'Barlow',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -37,6 +52,20 @@
     --radius:14px; --shadow:0 1px 3px rgba(20,18,15,.06),0 18px 40px -24px rgba(20,18,15,.28);
     --maxw:920px;
   }
+  :root[data-theme="dark"]{
+    --bg:#0b0b0d; --panel:#151517; --panel-2:#1b1b1e;
+    --ink:#eceae6; --ink-soft:#a9a7a1; --ink-faint:#7c7a74;
+    --line:#2a2a2d; --line-soft:#232326; --hover:#1e1e21;
+    --toolbar-bg:rgba(11,11,13,.88);
+    --accent:#2ca5b8; --accent-soft:rgba(44,165,184,.16); --accent-ink:#7fd0dd;
+    --amber:#7fb6dd; --amber-soft:rgba(47,111,158,.16);
+    --slate:#a9b8e6; --slate-soft:rgba(52,73,130,.24);
+    --green:#3fc0d4; --green-soft:rgba(44,165,184,.16);
+    --plum:#c98fb5;  --plum-soft:rgba(171,92,149,.18);
+    --quote-ink:#c7d0e4; --accent-strong-ink:#bfe7ee;
+    --overlay-bg:rgba(0,0,0,.7);
+    --shadow:0 1px 3px rgba(0,0,0,.4),0 18px 40px -24px rgba(0,0,0,.7);
+  }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
@@ -45,6 +74,11 @@
     line-height:1.6; font-size:17px; -webkit-font-smoothing:antialiased;
   }
   .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px 80px;}
+  .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;}
+  .skip-link{position:absolute; left:-9999px; top:0; z-index:200; background:var(--near-black); color:#fff; padding:10px 16px; border-radius:0 0 8px 0; font-family:var(--font-cond); font-weight:600;}
+  .skip-link:focus{left:0;}
+  a{color:var(--accent-ink);}
+  button:focus-visible, a:focus-visible, [role="button"]:focus-visible, input:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 
   /* ---------- Band motif ---------- */
   .bandset{display:flex;}
@@ -79,21 +113,46 @@
 
   /* ---------- Sticky control bar ---------- */
   .toolbar{
-    position:sticky; top:0; z-index:50; background:rgba(233,231,228,.9);
+    position:sticky; top:0; z-index:50; background:var(--toolbar-bg);
     backdrop-filter:saturate(140%) blur(8px); border-bottom:1px solid var(--line);
     margin-top:18px;
   }
-  .toolbar-inner{max-width:var(--maxw); margin:0 auto; padding:10px 20px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
-  .progress-wrap{flex:1 1 200px; min-width:160px;}
+  .toolbar-inner{max-width:var(--maxw); margin:0 auto; padding:10px 20px; display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  .progress-wrap{flex:1 1 170px; min-width:150px;}
   .progress-label{font-family:var(--font-cond); font-weight:500; letter-spacing:.04em; font-size:12px; color:var(--ink-soft); margin-bottom:3px; display:flex; justify-content:space-between;}
   .bar{height:8px; background:var(--line); border-radius:99px; overflow:hidden;}
   .bar>i{display:block; height:100%; width:0; background:var(--band-grad); transition:width .3s ease;}
   .btn{
     font-family:var(--font-cond); font-size:13.5px; font-weight:600; letter-spacing:.02em; cursor:pointer; border:1px solid var(--line);
-    background:var(--panel); color:var(--ink); padding:7px 13px; border-radius:9px; transition:.15s;
+    background:var(--panel); color:var(--ink); padding:7px 12px; border-radius:9px; transition:.15s; text-decoration:none; display:inline-block; line-height:1.45;
   }
   .btn:hover{border-color:var(--accent); color:var(--accent-ink);}
   .btn:active{transform:translateY(1px);}
+  .btn.primary{background:var(--accent); border-color:var(--accent); color:#fff;}
+  .btn.primary:hover{background:#238ea0; border-color:#238ea0; color:#fff;}
+  .btn.icon{padding:7px 10px;}
+  .btn[aria-pressed="true"]{background:var(--accent-soft); border-color:var(--accent); color:var(--accent-ink);}
+
+  /* ---------- Live bar ---------- */
+  .live-bar{border-top:1px solid var(--line); position:relative;}
+  .live-bar::before{content:""; position:absolute; top:-1px; left:0; right:0; height:2px; background:var(--band-grad);}
+  .live-inner{max-width:var(--maxw); margin:0 auto; padding:9px 20px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; font-family:var(--font-cond);}
+  .live-dot{width:10px; height:10px; border-radius:50%; background:var(--accent); flex:none; animation:livepulse 1.6s ease-in-out infinite;}
+  @keyframes livepulse{0%,100%{opacity:1; box-shadow:0 0 0 0 var(--accent-soft);}50%{opacity:.55; box-shadow:0 0 0 5px var(--accent-soft);}}
+  .live-clock{font-family:var(--font-head); font-weight:700; font-size:1.35rem; font-variant-numeric:tabular-nums; letter-spacing:.03em; min-width:74px;}
+  .live-seg{font-weight:600; font-size:14px; max-width:230px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .chip{font-size:12px; font-weight:700; letter-spacing:.04em; padding:3px 10px; border-radius:999px; font-variant-numeric:tabular-nums; background:var(--line-soft); color:var(--ink-soft);}
+  .chip.ok{background:var(--accent-soft); color:var(--accent-ink);}
+  .chip.ahead{background:var(--accent-soft); color:var(--accent-ink);}
+  .chip.behind{background:var(--plum-soft); color:var(--plum);}
+  .chip.count{background:var(--amber-soft); color:var(--amber);}
+  .chip.count.over{background:var(--plum-soft); color:var(--plum);}
+  .live-lead,.live-next{font-size:12.5px; color:var(--ink-soft);}
+  .live-next b{color:var(--ink); font-weight:600;}
+  .live-hint{flex-basis:100%; font-size:12.5px; color:var(--plum); font-weight:600;}
+  .live-actions{margin-left:auto; display:flex; gap:8px;}
+  body.is-live #goLive{display:none;}
+  body.is-live section.seg{scroll-margin-top:138px;}
 
   /* ---------- Jump nav ---------- */
   nav.jump{margin:18px 0 8px; display:flex; flex-wrap:wrap; gap:8px;}
@@ -113,7 +172,7 @@
   section.seg{
     background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);
     box-shadow:var(--shadow); margin:16px 0; overflow:hidden; scroll-margin-top:74px;
-    border-left:6px solid var(--accent);
+    border-left:6px solid var(--accent); transition:opacity .25s ease;
   }
   section.seg[data-tone="prep"]{border-left-color:#9a938a}
   section.seg[data-tone="a"]{border-left-color:var(--band-3)}
@@ -121,13 +180,18 @@
   section.seg[data-tone="c"]{border-left-color:var(--band-1)}
   section.seg[data-tone="d"]{border-left-color:var(--band-4)}
   section.seg[data-tone="e"]{border-left-color:var(--band-1)}
+  section.seg.current{box-shadow:0 0 0 2px var(--accent), var(--shadow);}
+  section.seg.current .seg-num{background:var(--band-grad); color:#fff;}
+  section.seg.kbd-focus{outline:2px dashed var(--accent); outline-offset:3px;}
+  body.focus-dim section.seg:not(.current){opacity:.35;}
+  body.focus-dim section.seg:not(.current):hover{opacity:.8;}
   .seg-head{
-    display:flex; align-items:center; gap:14px; padding:16px 18px; cursor:pointer; user-select:none;
+    display:flex; align-items:center; gap:12px; padding:16px 18px; cursor:pointer; user-select:none;
   }
   .seg-head:hover{background:var(--hover);}
   .seg-num{
     flex:none; width:34px; height:34px; border-radius:9px; display:grid; place-items:center;
-    font-family:var(--font-head); font-weight:700; font-size:16px; background:var(--ink); color:#fff;
+    font-family:var(--font-head); font-weight:700; font-size:16px; background:var(--ink); color:var(--bg);
   }
   .seg-title{flex:1; min-width:0;}
   .seg-title h2{margin:0; font-family:var(--font-head); font-weight:600; font-size:1.3rem; line-height:1.18; letter-spacing:.01em;}
@@ -135,6 +199,16 @@
   .seg-meta{display:flex; gap:8px; align-items:center; margin-top:4px; flex-wrap:wrap;}
   .time{font-family:var(--font-cond); font-size:12px; font-weight:700; letter-spacing:.04em; color:var(--accent-ink); background:var(--accent-soft); padding:2px 9px; border-radius:999px; font-variant-numeric:tabular-nums;}
   .clock{font-size:12px; color:var(--ink-soft); font-variant-numeric:tabular-nums;}
+  .seg-countdown{font-family:var(--font-cond); font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; background:var(--amber-soft); color:var(--amber); font-variant-numeric:tabular-nums;}
+  .seg-countdown.over{background:var(--plum-soft); color:var(--plum);}
+  .lead{
+    flex:none; font-family:var(--font-cond); font-weight:700; font-size:11px; letter-spacing:.06em;
+    border:1px solid var(--line); border-radius:999px; padding:4px 9px; cursor:pointer; transition:.15s;
+    background:var(--panel-2); color:var(--ink-soft);
+  }
+  .lead[data-lead="L"]{background:var(--accent-soft); color:var(--accent-ink); border-color:transparent;}
+  .lead[data-lead="N"]{background:var(--plum-soft); color:var(--plum); border-color:transparent;}
+  .lead[data-lead="LN"]{background:var(--band-grad); color:#fff; border-color:transparent;}
   .chev{flex:none; color:var(--ink-faint); transition:transform .25s ease; font-size:20px; line-height:1;}
   section.seg.open .chev{transform:rotate(90deg);}
   .done-toggle{flex:none; display:flex; align-items:center; gap:6px; font-family:var(--font-cond); font-size:12px; letter-spacing:.04em; color:var(--ink-soft); cursor:pointer;}
@@ -159,7 +233,7 @@
 
   blockquote.q{
     margin:12px 0; padding:12px 16px; border-left:4px solid var(--slate); background:var(--slate-soft);
-    border-radius:0 10px 10px 0; font-style:italic; color:#2c3444; font-size:15.5px;
+    border-radius:0 10px 10px 0; font-style:italic; color:var(--quote-ink); font-size:15.5px;
   }
   blockquote.q .src{display:block; font-style:normal; font-family:var(--font-cond); font-size:12px; color:var(--slate); margin-top:5px; letter-spacing:.03em;}
 
@@ -180,8 +254,8 @@
   .card p{margin:4px 0; font-size:13.6px; color:var(--ink-soft);}
   .card .flag{color:var(--plum);}
   .card .good{color:var(--accent-ink);}
-  .card.porous{border-top:4px solid var(--band-2);} .card.porous .cap{color:#285f86;}
-  .card.rigid{border-top:4px solid var(--band-1);} .card.rigid .cap{color:var(--band-1);}
+  .card.porous{border-top:4px solid var(--band-2);} .card.porous .cap{color:var(--amber);}
+  .card.rigid{border-top:4px solid var(--band-1);} .card.rigid .cap{color:var(--slate);}
   .card.healthy{border-top:4px solid var(--band-3);} .card.healthy .cap{color:var(--accent-ink);}
   .card .stepn{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:7px; background:var(--accent-soft); color:var(--accent-ink); font-family:var(--font-head); font-weight:700; font-size:15px; margin-bottom:6px;}
 
@@ -189,20 +263,70 @@
   .vs{display:grid; gap:8px; margin:10px 0;}
   .vs .row{display:grid; grid-template-columns:130px 1fr; gap:12px; padding:10px 12px; border:1px solid var(--line); border-radius:10px; background:var(--panel-2); align-items:start;}
   .vs .row .k{font-weight:700; font-size:14px;}
-  .vs .row.is-b{background:var(--accent-soft); border-color:#a9dbe3;}
+  .vs .row.is-b{background:var(--accent-soft); border-color:var(--accent);}
   .vs .row .k .tag{display:block; font-family:var(--font-cond); font-size:11px; font-weight:600; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em;}
   .vs .row p{margin:0; font-size:14px; color:var(--ink-soft);}
   .vs .row.is-b .k{color:var(--accent-ink);}
-  .vs .row.is-b p{color:#12484f;}
+  .vs .row.is-b p{color:var(--accent-strong-ink);}
 
   /* ---------- Scripts ---------- */
   .script{border:1px solid var(--line); border-radius:11px; padding:12px 13px; margin:9px 0; background:var(--panel-2); display:flex; gap:12px; align-items:flex-start;}
   .script .stxt{flex:1;}
   .script .cap{font-family:var(--font-cond); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--plum); margin-bottom:3px;}
   .script .line{font-size:15.5px;}
-  .script .copy{flex:none; font-family:var(--font-cond); font-size:12px; font-weight:700; letter-spacing:.04em; border:1px solid var(--line); background:#fff; color:var(--ink-soft); padding:5px 11px; border-radius:8px; cursor:pointer; transition:.15s;}
+  .script .copy{flex:none; font-family:var(--font-cond); font-size:12px; font-weight:700; letter-spacing:.04em; border:1px solid var(--line); background:var(--panel-2); color:var(--ink-soft); padding:5px 11px; border-radius:8px; cursor:pointer; transition:.15s;}
   .script .copy:hover{border-color:var(--plum); color:var(--plum);}
   .script .copy.copied{background:var(--accent-soft); border-color:var(--accent); color:var(--accent-ink);}
+
+  /* ---------- Chat drawer ---------- */
+  .chat-drawer{
+    position:fixed; top:0; right:0; bottom:0; width:min(400px,94vw); z-index:80;
+    background:var(--panel); border-left:1px solid var(--line); box-shadow:-18px 0 50px -30px rgba(0,0,0,.5);
+    transform:translateX(105%); transition:transform .28s ease; display:flex; flex-direction:column;
+  }
+  .chat-drawer.open{transform:translateX(0);}
+  .chat-head{padding:16px 18px 12px; border-bottom:1px solid var(--line);}
+  .chat-head .bandset{height:5px; gap:3px; width:120px; margin-bottom:10px;}
+  .chat-head h2{margin:0; font-family:var(--font-head); font-weight:600; font-size:1.15rem; letter-spacing:.03em;}
+  .chat-head p{margin:5px 0 10px; font-size:12.5px; color:var(--ink-soft);}
+  .chat-head .row{display:flex; gap:8px; align-items:center;}
+  .chat-close{margin-left:auto;}
+  .chat-list{flex:1; overflow-y:auto; padding:10px 14px 24px;}
+  .chat-item{display:flex; gap:10px; align-items:flex-start; border:1px solid var(--line); border-radius:10px; background:var(--panel-2); padding:10px 12px; margin:8px 0;}
+  .chat-item.copied{opacity:.55;}
+  .chat-item.next{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent);}
+  .chat-item .ctag{flex:none; font-family:var(--font-cond); font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent-soft); border-radius:999px; padding:2px 8px; margin-top:2px;}
+  .chat-item .ctxt{flex:1; min-width:0;}
+  .chat-item .clab{font-family:var(--font-cond); font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--plum); margin-bottom:2px;}
+  .chat-item .cline{font-size:13.5px; line-height:1.5; overflow-wrap:break-word;}
+  .chat-item .copy{flex:none; font-family:var(--font-cond); font-size:11.5px; font-weight:700; border:1px solid var(--line); background:var(--panel); color:var(--ink-soft); padding:4px 9px; border-radius:7px; cursor:pointer;}
+  .chat-item .copy:hover{border-color:var(--accent); color:var(--accent-ink);}
+  .chat-item .copy.copied{background:var(--accent-soft); border-color:var(--accent); color:var(--accent-ink);}
+
+  /* ---------- Overlays ---------- */
+  .overlay{position:fixed; inset:0; z-index:90; background:var(--overlay-bg); display:grid; place-items:center; padding:20px;}
+  .overlay[hidden]{display:none;}
+  .modal{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); max-width:560px; width:100%; max-height:86vh; overflow:auto; box-shadow:var(--shadow);}
+  .modal .modal-bands{height:6px;}
+  .modal-pad{padding:20px 24px 24px;}
+  .modal h2{font-family:var(--font-head); font-weight:600; font-size:1.4rem; margin:4px 0 10px; letter-spacing:.02em;}
+  .modal-actions{display:flex; gap:10px; margin-top:16px; justify-content:flex-end;}
+  .debrief-table{width:100%; border-collapse:collapse; font-size:14px; margin-top:8px;}
+  .debrief-table th{font-family:var(--font-cond); font-size:11.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-faint); text-align:left; padding:6px 8px; border-bottom:1px solid var(--line);}
+  .debrief-table td{padding:7px 8px; border-bottom:1px solid var(--line-soft); font-variant-numeric:tabular-nums;}
+  .debrief-table td.num{text-align:right;}
+  .debrief-table .over{color:var(--plum); font-weight:600;}
+  .debrief-table .under{color:var(--accent-ink); font-weight:600;}
+  .debrief-total{font-size:14.5px; color:var(--ink-soft); margin:6px 0 0;}
+  .debrief-total b{color:var(--ink);}
+  .keys{display:grid; grid-template-columns:auto 1fr; gap:7px 16px; font-size:14px; margin-top:6px;}
+  .keys kbd{font-family:var(--font-cond); font-weight:700; font-size:12px; background:var(--panel-2); border:1px solid var(--line); border-bottom-width:2px; border-radius:6px; padding:2px 8px; min-width:26px; text-align:center; display:inline-block;}
+  .keys span{color:var(--ink-soft);}
+
+  /* ---------- Confetti ---------- */
+  .confetti{position:fixed; inset:0; pointer-events:none; z-index:110; overflow:hidden;}
+  .confetti i{position:absolute; top:-16px; width:8px; height:14px; border-radius:2px; opacity:.95; animation:confetti-fall linear forwards;}
+  @keyframes confetti-fall{to{transform:translateY(108vh) rotate(560deg);}}
 
   /* ---------- Footer ---------- */
   footer{max-width:var(--maxw); margin:40px auto 0; background:var(--near-black); color:#cfd6e2; border-radius:var(--radius); overflow:hidden; font-size:13px;}
@@ -215,12 +339,22 @@
   footer .foot-notes b{color:#e9e7e4; font-weight:600;}
   footer .foot-notes i{color:#c9c7c2;}
   footer .foot-brand-note{font-family:var(--font-cond); letter-spacing:.04em; color:#8a8880 !important; margin-top:16px !important; border-top:1px solid #26251f; padding-top:14px;}
-  footer .foot-brand-note span{color:var(--accent); font-weight:600;}
+  footer .foot-brand-note span{color:var(--band-3); font-weight:600;}
+  footer a{color:#7fd0dd;}
+
+  /* ---------- Reduced motion ---------- */
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .seg-body,.chat-drawer,section.seg,.bar>i,.chev{transition:none !important;}
+    .live-dot{animation:none;}
+    .confetti{display:none;}
+  }
 
   /* ---------- Print ---------- */
   @media print{
-    .toolbar,nav.jump,.chev,.done-toggle,.script .copy,.btn,.brandbar{display:none !important;}
+    .toolbar,nav.jump,.chev,.done-toggle,.script .copy,.btn,.brandbar,.lead,.seg-countdown,.chat-drawer,.overlay,.skip-link{display:none !important;}
     body{background:#fff; font-size:12px;}
+    body.focus-dim section.seg{opacity:1 !important;}
     section.seg{box-shadow:none; break-inside:avoid; border:1px solid #ccc;}
     .seg-body{max-height:none !important;}
     .seg-body-inner{padding-top:6px;}
@@ -237,21 +371,25 @@
     body{font-size:16px;} h1{font-size:1.9rem;}
     .wordmark .mark{font-size:2rem;}
     .vs .row{grid-template-columns:1fr;}
-    .seg-head{gap:10px; padding:14px;}
+    .seg-head{gap:8px; padding:14px;}
+    .live-seg{max-width:130px;}
+    .live-clock{font-size:1.15rem; min-width:60px;}
   }
 </style>
 </head>
 <body>
 
-<div class="brandbar bandset"><span></span><span></span><span></span><span></span></div>
+<a class="skip-link" href="#main">Skip to run-sheet</a>
+
+<div class="brandbar bandset" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
 
 <header class="hero">
   <div class="wordmark">
-    <div class="bandset"><span></span><span></span><span></span><span></span></div>
+    <div class="bandset" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
     <div class="mark">ESTUS <span class="lt">HEALTH</span></div>
     <div class="tag">Occupational Therapy</div>
   </div>
-  <div class="eyebrow"><span class="eyebrow-bar"></span><span class="eyebrow-txt">Facilitator Run-Sheet · Live Webinar</span></div>
+  <div class="eyebrow"><span class="eyebrow-bar" aria-hidden="true"></span><span class="eyebrow-txt">Facilitator Run-Sheet · Live Webinar</span></div>
   <h1>Boundaries — Live Webinar Companion</h1>
   <p class="byline">Hosted by <b>Liam</b> &amp; <b>Nic Voican</b> · ~60-minute session template · built from the "Solved" boundaries research</p>
   <div class="oneliner">
@@ -265,16 +403,40 @@
       <div class="progress-label"><span>Session progress</span><span id="progTxt">0 / 10</span></div>
       <div class="bar"><i id="progBar"></i></div>
     </div>
+    <button class="btn primary" id="goLive" title="Start the session clock (g)">▶ Go live</button>
+    <button class="btn" id="chatBtn" title="Chat drops — everything you'll paste into chat (q)" aria-expanded="false">💬 Chat drops</button>
     <button class="btn" id="expandAll">Expand all</button>
     <button class="btn" id="collapseAll">Collapse all</button>
-    <button class="btn" onclick="window.print()">🖨 Print</button>
-    <button class="btn" id="resetBtn" title="Clear ticks & open state">Reset</button>
+    <button class="btn" id="focusBtn" title="Dim everything except the current segment (f)" aria-pressed="false">Focus</button>
+    <button class="btn" id="debriefBtn" hidden title="Review plan vs actual timing">Debrief</button>
+    <a class="btn" href="takeaway.html" target="_blank" rel="noopener" title="Audience takeaway page — drop the link in chat">Takeaway ↗</a>
+    <button class="btn icon" onclick="window.print()" title="Print" aria-label="Print">🖨</button>
+    <button class="btn icon" id="themeBtn" title="Toggle dark mode (d)" aria-label="Toggle dark mode">🌙</button>
+    <button class="btn icon" id="helpBtn" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">?</button>
+    <button class="btn" id="resetBtn" title="Clear ticks, timers &amp; session data">Reset</button>
+  </div>
+  <div class="live-bar" id="liveBar" hidden>
+    <div class="live-inner">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span class="live-clock" id="liveClock">00:00</span>
+      <span class="live-seg" id="liveSeg"></span>
+      <span class="chip count" id="liveCount"></span>
+      <span class="chip" id="liveDrift"></span>
+      <span class="live-lead" id="liveLead"></span>
+      <span class="live-next">Next: <b id="liveNextName"></b></span>
+      <div class="live-actions">
+        <button class="btn primary" id="nextBtn" title="Mark current segment done and advance (n)">Next ▸</button>
+        <button class="btn" id="endBtn">End &amp; debrief</button>
+      </div>
+      <span class="live-hint" id="liveHint" hidden></span>
+    </div>
   </div>
 </div>
+<div class="sr-only" role="status" aria-live="polite" id="liveStatus"></div>
 
-<div class="wrap">
+<div class="wrap" id="main">
 
-  <nav class="jump" id="jumpNav"><!-- filled by JS --></nav>
+  <nav class="jump" id="jumpNav" aria-label="Jump to segment"><!-- filled by JS --></nav>
 
   <div class="legend">
     <div><b>🎤 Say</b> — cover / talking points</div>
@@ -287,14 +449,15 @@
 
   <!-- ============ PREP ============ -->
   <section class="seg" data-tone="prep" id="prep">
-    <div class="seg-head">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">0</div>
       <div class="seg-title">
         <h2>Pre-flight</h2>
-        <div class="seg-meta"><span class="time">T–10 min</span><span class="clock">before you go live</span></div>
+        <div class="seg-meta"><span class="time">T–10 min</span><span class="clock">before you go live</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="prep" title="Segment lead — click to swap">L·N</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark Pre-flight done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Set up</span>
@@ -310,14 +473,15 @@
 
   <!-- ============ 1 ============ -->
   <section class="seg" data-tone="a" id="s1">
-    <div class="seg-head">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">1</div>
       <div class="seg-title">
         <h2>Welcome &amp; the hook</h2>
-        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:00 – 0:05</span></div>
+        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:00 – 0:05</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s1" title="Segment lead — click to swap">L</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 1 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span>
@@ -334,14 +498,15 @@
 
   <!-- ============ 2 ============ -->
   <section class="seg" data-tone="a" id="s2">
-    <div class="seg-head">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">2</div>
       <div class="seg-title">
         <h2>What boundaries <em>are</em> — and what they're not</h2>
-        <div class="seg-meta"><span class="time">8 min</span><span class="clock">0:05 – 0:13</span></div>
+        <div class="seg-meta"><span class="time">8 min</span><span class="clock">0:05 – 0:13</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s2" title="Segment lead — click to swap">N</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 2 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span>
@@ -369,14 +534,15 @@
 
   <!-- ============ 3 ============ -->
   <section class="seg" data-tone="c" id="s3">
-    <div class="seg-head">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">3</div>
       <div class="seg-title">
         <h2>The boundary continuum: porous → healthy → rigid</h2>
-        <div class="seg-meta"><span class="time">6 min</span><span class="clock">0:13 – 0:19</span></div>
+        <div class="seg-meta"><span class="time">6 min</span><span class="clock">0:13 – 0:19</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s3" title="Segment lead — click to swap">L</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 3 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> It's a <b>spectrum, not a personality type</b>. Most of us are porous in some areas and rigid in others. The goal is the middle — <b>clear yet flexible</b>.</div></div>
@@ -408,15 +574,16 @@
   </section>
 
   <!-- ============ 4 ============ -->
-  <section class="seg" data-tone="b" id="s4">
-    <div class="seg-head">
+  <section class="seg" data-tone="b" id="s4" data-flex="Keep it to 60–90 seconds — why it isn't selfish — then move.">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">4</div>
       <div class="seg-title">
         <h2>Why boundaries matter (the "it's not selfish" beat)</h2>
-        <div class="seg-meta"><span class="time">6 min</span><span class="clock">0:19 – 0:25</span></div>
+        <div class="seg-meta"><span class="time">6 min</span><span class="clock">0:19 – 0:25</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s4" title="Segment lead — click to swap">N</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 4 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say — keep it light, ~90 sec</span>
@@ -434,15 +601,16 @@
   </section>
 
   <!-- ============ 5 ============ -->
-  <section class="seg" data-tone="a" id="s5">
-    <div class="seg-head">
+  <section class="seg" data-tone="a" id="s5" data-flex="Protect steps 1, 2 and 6 — summarize 3–5 fast.">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">5</div>
       <div class="seg-title">
         <h2>The 6 steps to setting a boundary <em>(the core)</em></h2>
-        <div class="seg-meta"><span class="time">18 min</span><span class="clock">0:25 – 0:43</span></div>
+        <div class="seg-meta"><span class="time">18 min</span><span class="clock">0:25 – 0:43</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s5" title="Segment lead — click to swap">L</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 5 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <p class="note">This is the heart of the session — spend the most time here, especially on <b>Awareness</b>, <b>State clearly</b>, and <b>Guilt</b>.</p>
@@ -487,15 +655,16 @@
   </section>
 
   <!-- ============ 6 ============ -->
-  <section class="seg" data-tone="d" id="s6">
-    <div class="seg-head">
+  <section class="seg" data-tone="d" id="s6" data-flex="Quick map only — read the domains, take the chat poll, move on.">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">6</div>
       <div class="seg-title">
         <h2>The 8 domains — a fast self-audit</h2>
-        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:43 – 0:48</span></div>
+        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:43 – 0:48</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s6" title="Segment lead — click to swap">N</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 6 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> Boundaries live across <b>all</b> of these. Most people are strong in some and nearly invisible in others. Run it as a quick map, not a deep dive.</div></div>
@@ -518,14 +687,15 @@
 
   <!-- ============ 7 ============ -->
   <section class="seg" data-tone="e" id="s7">
-    <div class="seg-head">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">7</div>
       <div class="seg-title">
         <h2>Why it's so hard — toxic dynamics &amp; barriers</h2>
-        <div class="seg-meta"><span class="time">7 min</span><span class="clock">0:48 – 0:55</span></div>
+        <div class="seg-meta"><span class="time">7 min</span><span class="clock">0:48 – 0:55</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s7" title="Segment lead — click to swap">L</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 7 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> Boundaries don't get set inside <b>enmeshed / codependent</b> relationships — because the boundary interrupts the dynamic that both people are feeding on. Picture it: <b>one person walks room to room setting fires, the other sprints behind with a fire hose.</b> Both get to feel needed.</div></div>
@@ -555,15 +725,16 @@
   </section>
 
   <!-- ============ 8 ============ -->
-  <section class="seg" data-tone="e" id="s8">
-    <div class="seg-head">
+  <section class="seg" data-tone="e" id="s8" data-flex="Paste all the scripts into chat and let them read.">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">8</div>
       <div class="seg-title">
         <h2>Scripts: saying no without guilt or drama</h2>
-        <div class="seg-meta"><span class="time">3 min + takeaway</span><span class="clock">0:55 – 0:58</span></div>
+        <div class="seg-meta"><span class="time">3 min + takeaway</span><span class="clock">0:55 – 0:58</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s8" title="Segment lead — click to swap">N</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 8 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span> "You don't need the perfect words — you need <b>a few you can reuse</b>." Paste these into the chat as the takeaway. Hit <b>Copy</b> to grab any line.</div></div>
@@ -582,14 +753,15 @@
 
   <!-- ============ 9 ============ -->
   <section class="seg" data-tone="d" id="s9">
-    <div class="seg-head">
+    <div class="seg-head" role="button" tabindex="0" aria-expanded="true">
       <div class="seg-num">9</div>
       <div class="seg-title">
         <h2>Q&amp;A &amp; close</h2>
-        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:58 – 1:00</span></div>
+        <div class="seg-meta"><span class="time">5 min</span><span class="clock">0:58 – 1:00</span><span class="seg-countdown" hidden></span></div>
       </div>
-      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk"> done</label>
-      <div class="chev">›</div>
+      <button class="lead" type="button" data-seg="s9" title="Segment lead — click to swap">L·N</button>
+      <label class="done-toggle" onclick="event.stopPropagation()"><input type="checkbox" class="doneCk" aria-label="Mark segment 9 done"> done</label>
+      <div class="chev" aria-hidden="true">›</div>
     </div>
     <div class="seg-body"><div class="seg-body-inner">
       <div class="cue say"><span class="ic">🎤</span><div><span class="lab">Say</span>
@@ -598,37 +770,171 @@
           <li>Take 2–3 questions from the chat.</li>
           <li><b>The one challenge:</b> "Before you log off, pick <b>ONE</b> boundary and write its <b>if-then</b> in the chat."</li>
           <li>Thank them. Point to further listening: the "Solved" boundaries episode &amp; the Mel Robbins "say no without guilt" episode.</li>
+          <li>Drop the <a href="takeaway.html" target="_blank" rel="noopener"><b>takeaway page</b></a> link in chat so everyone leaves with the scripts.</li>
         </ul></div></div>
       <div class="cue watch"><span class="ic">👀</span><div><span class="lab">Watch for</span> End on <b>action, not theory</b>. The if-then commitment in chat is what makes it stick.</div></div>
     </div></div>
   </section>
 
   <footer>
-    <div class="foot-top bandset"><span></span><span></span><span></span><span></span></div>
+    <div class="foot-top bandset" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
     <div class="foot-inner">
       <div class="foot-mark">ESTUS <span class="lt">HEALTH</span></div>
       <div class="foot-tag">Occupational Therapy</div>
       <div class="foot-notes">
         <p><b>Built from your sources:</b> the "Solved" boundaries podcast transcript (Mark Manson &amp; Drew Birnie), <i>The Architecture of Autonomy</i> boundary-continuum table, and the <i>Healthy Boundary Concepts &amp; Indicators</i> domain sheet. Referenced episodes: <i>How to Set (and Keep) Your Boundaries This Year, Solved</i> and <i>Start Putting Yourself First — The Mel Robbins Podcast</i>.</p>
-        <p>Tip: timings are a template — drag your attention where the room needs it. Your ticks and open sections are saved in this browser.</p>
-        <p class="foot-brand-note">Facilitator companion for Estus Health · <span>www.estushealth.com</span></p>
+        <p>Tip: timings are a template — drag your attention where the room needs it. Your ticks, leads and session clock are saved in this browser, and the page keeps working offline once it has loaded.</p>
+        <p class="foot-brand-note">Facilitator companion for Estus Health · <span>www.estushealth.com</span> · <a href="takeaway.html">audience takeaway sheet</a></p>
       </div>
     </div>
   </footer>
 
 </div>
 
+<!-- ---------- Chat drops drawer ---------- -->
+<aside class="chat-drawer" id="chatDrawer" role="complementary" aria-label="Chat drops">
+  <div class="chat-head">
+    <div class="bandset" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <h2>Chat drops</h2>
+    <p>Everything you'll paste into the chat, in running order. Copy them as you go — copied ones dim.</p>
+    <div class="row">
+      <button class="btn primary" id="copyNextChat">Copy next drop</button>
+      <button class="btn chat-close" id="chatClose" aria-label="Close chat drops">✕</button>
+    </div>
+  </div>
+  <div class="chat-list" id="chatList"></div>
+</aside>
+
+<!-- ---------- Debrief ---------- -->
+<div class="overlay" id="debrief" hidden role="dialog" aria-modal="true" aria-labelledby="debriefTitle">
+  <div class="modal">
+    <div class="modal-bands bandset" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="modal-pad">
+      <h2 id="debriefTitle">Session debrief</h2>
+      <p class="debrief-total" id="debriefTotals"></p>
+      <table class="debrief-table">
+        <thead><tr><th>Segment</th><th style="text-align:right">Plan</th><th style="text-align:right">Actual</th><th style="text-align:right">±</th></tr></thead>
+        <tbody id="debriefRows"></tbody>
+      </table>
+      <div class="modal-actions">
+        <button class="btn" id="copyDebrief">Copy summary</button>
+        <button class="btn primary" id="closeDebrief">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ---------- Shortcuts help ---------- -->
+<div class="overlay" id="help" hidden role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+  <div class="modal">
+    <div class="modal-bands bandset" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="modal-pad">
+      <h2 id="helpTitle">Keyboard shortcuts</h2>
+      <div class="keys">
+        <kbd>g</kbd><span>Go live — start the session clock</span>
+        <kbd>n</kbd><span>Next — tick the current segment &amp; advance (live)</span>
+        <kbd>x</kbd><span>Tick / untick the highlighted segment</span>
+        <kbd>j</kbd><span>Jump to next segment</span>
+        <kbd>k</kbd><span>Jump to previous segment</span>
+        <kbd>e</kbd><span>Expand all segments</span>
+        <kbd>c</kbd><span>Collapse all segments</span>
+        <kbd>q</kbd><span>Open / close chat drops</span>
+        <kbd>f</kbd><span>Focus mode — dim everything but the current segment</span>
+        <kbd>d</kbd><span>Toggle dark mode</span>
+        <kbd>?</kbd><span>Show this help</span>
+        <kbd>Esc</kbd><span>Close panels</span>
+      </div>
+      <div class="modal-actions">
+        <button class="btn primary" id="closeHelp">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   "use strict";
-  var KEY="estus_boundaries_runsheet_v1";
-  var store={open:{},done:{}};
-  try{ var raw=localStorage.getItem(KEY); if(raw){ store=JSON.parse(raw)||store; store.open=store.open||{}; store.done=store.done||{}; } }catch(e){}
-  function save(){ try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){} }
+
+  /* ============================================================
+     Estus Health · Boundaries run-sheet — facilitation engine
+     ============================================================ */
+
+  var KEY="estus_boundaries_runsheet_v2";
+  var LEGACY_KEYS=["estus_boundaries_runsheet_v1","boundaries_runsheet_v1"];
+  var LEAD_NAMES={L:"Liam",N:"Nic",LN:"Liam + Nic"};
+  var LEAD_LABEL={L:"L",N:"N",LN:"L·N"};
+  var DEFAULT_LEADS={prep:"LN",s1:"L",s2:"N",s3:"L",s4:"N",s5:"L",s6:"N",s7:"L",s8:"N",s9:"LN"};
+  /* [id, planned minutes] — cumulative starts drive the drift chip */
+  var SCHED=[["s1",5],["s2",8],["s3",6],["s4",6],["s5",18],["s6",5],["s7",7],["s8",3],["s9",5]];
+  var PLAN={},STARTS={},PLAN_TOTAL=0;
+  SCHED.forEach(function(p){STARTS[p[0]]=PLAN_TOTAL*60;PLAN[p[0]]=p[1]*60;PLAN_TOTAL+=p[1];});
+  PLAN_TOTAL*=60; /* seconds */
+
+  /* ---------- state ---------- */
+  var store={open:{},done:{},leads:{},live:null,theme:null,focus:false};
+  try{
+    var raw=localStorage.getItem(KEY);
+    if(raw){
+      var s0=JSON.parse(raw)||{};
+      store.open=s0.open||{}; store.done=s0.done||{}; store.leads=s0.leads||{};
+      store.live=s0.live||null; store.theme=s0.theme||null; store.focus=!!s0.focus;
+    }else{
+      for(var li=0;li<LEGACY_KEYS.length;li++){
+        var old=localStorage.getItem(LEGACY_KEYS[li]);
+        if(old){var o=JSON.parse(old)||{}; store.open=o.open||{}; store.done=o.done||{}; break;}
+      }
+    }
+  }catch(e){}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(store));}catch(e){}}
+
+  /* ---------- helpers ---------- */
+  function qs(s){return document.querySelector(s);}
+  function nowSec(){return Math.floor(Date.now()/1000);}
+  function fmt(sec){ /* m:ss, with minus sign for negatives */
+    var neg=sec<0; sec=Math.abs(Math.round(sec));
+    var m=Math.floor(sec/60),s2=sec%60;
+    return (neg?"−":"")+m+":"+(s2<10?"0":"")+s2;
+  }
+  function fmtClock(sec){ /* mm:ss, or h:mm:ss past the hour */
+    sec=Math.max(0,Math.round(sec));
+    var h=Math.floor(sec/3600),m=Math.floor(sec%3600/60),s2=sec%60;
+    function p(n){return (n<10?"0":"")+n;}
+    return h>0? h+":"+p(m)+":"+p(s2) : p(m)+":"+p(s2);
+  }
+  function cleanText(t){return (t||"").replace(/\s+/g," ").trim();}
+  function seg(id){return document.getElementById(id);}
+  function headShort(id){
+    var el=seg(id); if(!el) return id;
+    var t=cleanText(el.querySelector(".seg-title h2").textContent);
+    return t.split("—")[0].split("(")[0].trim();
+  }
+  function segNum(id){var el=seg(id);return el?el.querySelector(".seg-num").textContent.trim():"";}
+  function schedIds(){return SCHED.map(function(p){return p[0];});}
+  function firstNotDone(){
+    var ids=schedIds();
+    for(var i=0;i<ids.length;i++){if(!store.done[ids[i]])return ids[i];}
+    return null;
+  }
+  function isLive(){return !!(store.live&&!store.live.ended);}
+  function currentId(){return isLive()?store.live.cur:firstNotDone();}
 
   var segs=Array.prototype.slice.call(document.querySelectorAll("section.seg"));
 
-  // Build jump nav
+  /* ---------- theme ---------- */
+  function themeNow(){return document.documentElement.getAttribute("data-theme")==="dark"?"dark":"light";}
+  function applyThemeButton(){
+    var b=qs("#themeBtn"); if(!b)return;
+    var dark=themeNow()==="dark";
+    b.textContent=dark?"☀️":"🌙";
+    b.setAttribute("aria-label",dark?"Switch to light mode":"Switch to dark mode");
+  }
+  function toggleTheme(){
+    var next=themeNow()==="dark"?"light":"dark";
+    document.documentElement.setAttribute("data-theme",next);
+    store.theme=next; save(); applyThemeButton();
+  }
+
+  /* ---------- jump nav ---------- */
   var nav=document.getElementById("jumpNav");
   segs.forEach(function(s){
     var id=s.id;
@@ -642,78 +948,509 @@
     nav.appendChild(a);
   });
 
+  /* ---------- open/close ---------- */
   function setOpen(s,open){
     var body=s.querySelector(".seg-body");
+    var head=s.querySelector(".seg-head");
     if(open){ s.classList.add("open"); body.style.maxHeight=body.scrollHeight+"px"; }
     else{ s.classList.remove("open"); body.style.maxHeight="0px"; }
+    if(head)head.setAttribute("aria-expanded",open?"true":"false");
     store.open[s.id]=open;
   }
-  // recompute heights on resize
   var rt;
   window.addEventListener("resize",function(){
     clearTimeout(rt);
     rt=setTimeout(function(){
-      segs.forEach(function(s){ if(s.classList.contains("open")){ s.querySelector(".seg-body").style.maxHeight=s.querySelector(".seg-body").scrollHeight+"px"; } });
+      segs.forEach(function(s){ if(s.classList.contains("open")){ var b=s.querySelector(".seg-body"); b.style.maxHeight=b.scrollHeight+"px"; } });
     },120);
   });
 
-  segs.forEach(function(s){
-    // restore
-    var opened = store.open.hasOwnProperty(s.id)? store.open[s.id] : true; // default open
-    setOpen(s,opened);
-    var done = !!store.done[s.id];
-    var ck=s.querySelector(".doneCk");
-    if(done){ s.classList.add("done"); if(ck) ck.checked=true; }
+  /* ---------- progress ---------- */
+  function updateProgress(){
+    var total=segs.length;
+    var d=segs.filter(function(s){return s.classList.contains("done");}).length;
+    qs("#progTxt").textContent=d+" / "+total;
+    qs("#progBar").style.width=(total?(d/total*100):0)+"%";
+  }
 
-    // header toggles collapse
-    s.querySelector(".seg-head").addEventListener("click",function(){
-      setOpen(s, !s.classList.contains("open"));
-      save();
+  /* ---------- leads ---------- */
+  function leadOf(id){return store.leads[id]||DEFAULT_LEADS[id]||"L";}
+  function renderLead(btn){
+    var id=btn.getAttribute("data-seg");
+    var v=leadOf(id);
+    btn.textContent=LEAD_LABEL[v]||v;
+    btn.setAttribute("data-lead",v);
+    btn.setAttribute("aria-label","Segment lead: "+(LEAD_NAMES[v]||v)+" — click to swap");
+  }
+  document.querySelectorAll(".lead").forEach(function(btn){
+    renderLead(btn);
+    btn.addEventListener("click",function(e){
+      e.stopPropagation();
+      var id=btn.getAttribute("data-seg");
+      var order=["L","N","LN"];
+      var next=order[(order.indexOf(leadOf(id))+1)%order.length];
+      store.leads[id]=next; save(); renderLead(btn);
+      if(isLive()&&store.live.cur===id)renderLive();
     });
-    // done checkbox
+    btn.addEventListener("keydown",function(e){e.stopPropagation();});
+  });
+
+  /* ---------- section wiring ---------- */
+  segs.forEach(function(s){
+    var opened=store.open.hasOwnProperty(s.id)?store.open[s.id]:true; /* default open */
+    setOpen(s,opened);
+    var done=!!store.done[s.id];
+    var ck=s.querySelector(".doneCk");
+    if(done){ s.classList.add("done"); if(ck)ck.checked=true; }
+
+    var head=s.querySelector(".seg-head");
+    head.addEventListener("click",function(){
+      setOpen(s,!s.classList.contains("open")); save();
+    });
+    head.addEventListener("keydown",function(e){
+      if(e.target!==head)return;
+      if(e.key==="Enter"||e.key===" "){e.preventDefault(); setOpen(s,!s.classList.contains("open")); save();}
+    });
+
     if(ck){
       ck.addEventListener("change",function(){
         if(ck.checked){ s.classList.add("done"); store.done[s.id]=true; }
         else{ s.classList.remove("done"); store.done[s.id]=false; }
         save(); updateProgress();
+        if(isLive())onDoneChangedLive(s.id,ck.checked);
+        updateFocusDim();
       });
     }
   });
-
-  function updateProgress(){
-    var total=segs.length;
-    var d=segs.filter(function(s){return s.classList.contains("done");}).length;
-    document.getElementById("progTxt").textContent=d+" / "+total;
-    document.getElementById("progBar").style.width=(total? (d/total*100):0)+"%";
-  }
   updateProgress();
 
-  document.getElementById("expandAll").addEventListener("click",function(){ segs.forEach(function(s){setOpen(s,true);}); save(); });
-  document.getElementById("collapseAll").addEventListener("click",function(){ segs.forEach(function(s){setOpen(s,false);}); save(); });
-  document.getElementById("resetBtn").addEventListener("click",function(){
-    store={open:{},done:{}}; save();
-    segs.forEach(function(s){ s.classList.remove("done"); var ck=s.querySelector(".doneCk"); if(ck)ck.checked=false; setOpen(s,true); });
-    updateProgress();
-  });
+  /* ---------- live session engine ---------- */
+  var liveTimer=null;
+  var lastAnnounce="";
 
-  // smooth-scroll nav also opens target
-  nav.addEventListener("click",function(e){
-    var a=e.target.closest("a"); if(!a) return;
-    var t=document.querySelector(a.getAttribute("href"));
-    if(t && !t.classList.contains("open")){ setOpen(t,true); save(); }
-  });
+  function goLive(){
+    var cur=firstNotDone();
+    if(!cur){ alert("All segments are already ticked done — hit Reset first to run the session again."); return; }
+    store.live={t0:nowSec(),cur:cur,segStart:nowSec(),actual:{},ended:false,endedAt:null};
+    save();
+    enterLive();
+    requestWakeLock();
+  }
 
-  // copy buttons
+  function enterLive(){
+    document.body.classList.add("is-live");
+    qs("#liveBar").hidden=false;
+    var s=seg(store.live.cur);
+    if(s){ if(!s.classList.contains("open")){setOpen(s,true);save();} s.scrollIntoView({behavior:"smooth",block:"start"}); }
+    if(liveTimer)clearInterval(liveTimer);
+    liveTimer=setInterval(renderLive,1000);
+    renderLive();
+    updateFocusDim();
+    updateDebriefBtn();
+  }
+
+  function onDoneChangedLive(id,checked){
+    var L=store.live;
+    if(checked&&id===L.cur){ recordAndAdvance(); return; }
+    /* out-of-order tick / untick — recompute the pointer */
+    var f=firstNotDone();
+    if(f===null){ endLive(); return; }
+    if(f!==L.cur){ L.cur=f; L.segStart=nowSec(); save(); renderLive(); }
+  }
+
+  function recordAndAdvance(){
+    var L=store.live, t=nowSec();
+    L.actual[L.cur]=(L.actual[L.cur]||0)+(t-L.segStart);
+    var nxt=firstNotDone();
+    if(!nxt){ save(); endLive(); return; }
+    L.cur=nxt; L.segStart=t; save();
+    var s=seg(nxt);
+    if(s){ if(!s.classList.contains("open")){setOpen(s,true);save();} s.scrollIntoView({behavior:"smooth",block:"start"}); }
+    renderLive(); updateFocusDim();
+  }
+
+  function nextSeg(){
+    if(!isLive())return;
+    var ckb=seg(store.live.cur).querySelector(".doneCk");
+    if(ckb&&!ckb.checked){ ckb.checked=true; ckb.dispatchEvent(new Event("change")); }
+  }
+
+  function endLive(){
+    var L=store.live; if(!L||L.ended)return;
+    if(!store.done[L.cur]){ L.actual[L.cur]=(L.actual[L.cur]||0)+(nowSec()-L.segStart); }
+    L.ended=true; L.endedAt=nowSec(); save();
+    if(liveTimer){clearInterval(liveTimer);liveTimer=null;}
+    document.body.classList.remove("is-live");
+    qs("#liveBar").hidden=true;
+    clearCountdowns();
+    segs.forEach(function(s){s.classList.remove("current");});
+    updateDebriefBtn();
+    updateFocusDim();
+    releaseWakeLock();
+    showDebrief();
+    maybeConfetti();
+  }
+
+  function clearCountdowns(){
+    document.querySelectorAll(".seg-countdown").forEach(function(c){c.hidden=true;});
+  }
+
+  function renderLive(){
+    if(!isLive())return;
+    var L=store.live, t=nowSec();
+    var elapsed=t-L.t0, inSeg=t-L.segStart;
+    qs("#liveClock").textContent=fmtClock(elapsed);
+    qs("#liveSeg").textContent=segNum(L.cur)+" · "+headShort(L.cur);
+
+    /* in-segment countdown */
+    var remain=PLAN[L.cur]-inSeg;
+    var cd=qs("#liveCount");
+    cd.textContent=remain>=0? fmt(remain)+" left" : fmt(-remain)+" over";
+    cd.classList.toggle("over",remain<0);
+
+    /* drift vs plan: how late/early this segment started */
+    var drift=(L.segStart-L.t0)-STARTS[L.cur];
+    var dc=qs("#liveDrift");
+    var driftLabel;
+    if(Math.abs(drift)<30){ dc.textContent="on plan"; dc.className="chip ok"; driftLabel="on plan"; }
+    else if(drift>0){ dc.textContent=fmt(drift)+" behind"; dc.className="chip behind"; driftLabel=fmt(drift)+" behind plan"; }
+    else{ dc.textContent=fmt(-drift)+" ahead"; dc.className="chip ahead"; driftLabel=fmt(-drift)+" ahead of plan"; }
+
+    /* catch-up hint (from the sheet's own notes) once meaningfully behind */
+    var hint=qs("#liveHint");
+    var fx=seg(L.cur).getAttribute("data-flex");
+    var behindBy=drift+Math.max(0,inSeg-PLAN[L.cur]);
+    if(behindBy>120&&fx){ hint.textContent="Catch-up: "+fx; hint.hidden=false; }
+    else hint.hidden=true;
+
+    /* next up */
+    var ids=schedIds(), after=null;
+    for(var i=ids.indexOf(L.cur)+1;i<ids.length;i++){ if(!store.done[ids[i]]){after=ids[i];break;} }
+    qs("#liveNextName").textContent=after? segNum(after)+" · "+headShort(after) : "— last segment";
+
+    /* lead */
+    qs("#liveLead").textContent="Lead: "+(LEAD_NAMES[leadOf(L.cur)]||"—");
+
+    /* highlight + head countdown chip */
+    segs.forEach(function(s){s.classList.toggle("current",s.id===L.cur);});
+    clearCountdowns();
+    var chip=seg(L.cur).querySelector(".seg-countdown");
+    if(chip){
+      chip.hidden=false;
+      chip.textContent=remain>=0? fmt(remain)+" left" : fmt(-remain)+" over";
+      chip.classList.toggle("over",remain<0);
+    }
+
+    /* screen-reader announcement — only when something changes */
+    var announce="Segment "+segNum(L.cur)+", "+headShort(L.cur)+". "+driftLabel+".";
+    if(announce!==lastAnnounce){ qs("#liveStatus").textContent=announce; lastAnnounce=announce; }
+  }
+
+  /* ---------- debrief ---------- */
+  function updateDebriefBtn(){
+    qs("#debriefBtn").hidden=!(store.live&&store.live.ended);
+  }
+  function debriefData(){
+    var L=store.live; if(!L)return null;
+    var rows=[],totActual=0,anyActual=false;
+    SCHED.forEach(function(p){
+      var id=p[0], a=L.actual.hasOwnProperty(id)?L.actual[id]:null;
+      if(a!=null){totActual+=a;anyActual=true;}
+      rows.push({id:id,num:segNum(id),name:headShort(id),plan:p[1]*60,actual:a});
+    });
+    var wall=(L.endedAt||nowSec())-L.t0;
+    return {rows:rows,totActual:totActual,anyActual:anyActual,wall:wall};
+  }
+  function showDebrief(){
+    var d=debriefData(); if(!d)return;
+    var tb=qs("#debriefRows"); tb.innerHTML="";
+    d.rows.forEach(function(r){
+      var tr=document.createElement("tr");
+      function td(txt,cls,num){var c=document.createElement("td");c.textContent=txt;if(cls)c.className=cls;if(num)c.classList.add("num");return c;}
+      tr.appendChild(td(r.num+" · "+r.name));
+      tr.appendChild(td(fmt(r.plan),null,true));
+      tr.appendChild(td(r.actual==null?"—":fmt(r.actual),null,true));
+      if(r.actual==null){ tr.appendChild(td("—",null,true)); }
+      else{
+        var delta=r.actual-r.plan;
+        tr.appendChild(td((delta>0?"+":"−")+fmt(Math.abs(delta)),delta>0?"over":"under",true));
+      }
+      tb.appendChild(tr);
+    });
+    qs("#debriefTotals").textContent="Session ran "+fmtClock(d.wall)+" wall-clock · plan "+fmtClock(PLAN_TOTAL)+(d.anyActual?" · segments timed "+fmtClock(d.totActual):"");
+    qs("#debrief").hidden=false;
+    qs("#closeDebrief").focus();
+  }
+  function debriefSummaryText(){
+    var d=debriefData(); if(!d)return "";
+    var lines=["Boundaries webinar — session debrief (Estus Health)","Ran "+fmtClock(d.wall)+" · plan "+fmtClock(PLAN_TOTAL),""];
+    d.rows.forEach(function(r){
+      var delta=r.actual==null?null:r.actual-r.plan;
+      lines.push(r.num+". "+r.name+" — plan "+fmt(r.plan)+", actual "+(r.actual==null?"skipped":fmt(r.actual))+(delta==null?"":" ("+(delta>0?"+":"−")+fmt(Math.abs(delta))+")"));
+    });
+    return lines.join("\n");
+  }
+
+  /* ---------- chat drops ---------- */
+  var chatItems=[];
+  function buildChat(){
+    var list=qs("#chatList");
+    var ol=document.querySelector(".oneliner");
+    if(ol){
+      chatItems.push({seg:"Start",label:"One-liner",text:cleanText(ol.textContent).replace(/^The one-liner \(post this in chat\):\s*/,"")});
+    }
+    segs.forEach(function(s){
+      var n=segNum(s.id);
+      s.querySelectorAll(".cue.ask").forEach(function(c){
+        var t=cleanText(c.textContent).replace(/^💬?\s*Ask\s*/i,"");
+        var m=t.match(/"([^"]+)"/);
+        chatItems.push({seg:n,label:"Ask",text:m?'"'+m[1]+'"':t});
+      });
+      s.querySelectorAll(".script").forEach(function(sc){
+        chatItems.push({
+          seg:n,
+          label:cleanText(sc.querySelector(".cap").textContent),
+          text:cleanText(sc.querySelector(".line").textContent).replace(/\s*\(.*?\)\s*$/,"")
+        });
+      });
+    });
+    var origin=(location.origin&&location.origin!=="null")?location.origin:"";
+    chatItems.push({seg:"9",label:"Takeaway page",text:origin+"/takeaway"});
+
+    chatItems.forEach(function(it,idx){
+      var row=document.createElement("div"); row.className="chat-item"; row.setAttribute("data-idx",idx);
+      var tag=document.createElement("span"); tag.className="ctag"; tag.textContent=it.seg;
+      var txt=document.createElement("div"); txt.className="ctxt";
+      var lab=document.createElement("div"); lab.className="clab"; lab.textContent=it.label;
+      var line=document.createElement("div"); line.className="cline"; line.textContent=it.text;
+      txt.appendChild(lab); txt.appendChild(line);
+      var btn=document.createElement("button"); btn.className="copy"; btn.type="button"; btn.textContent="Copy";
+      btn.addEventListener("click",function(){ copyChat(idx,btn); });
+      row.appendChild(tag); row.appendChild(txt); row.appendChild(btn);
+      list.appendChild(row);
+      it.el=row; it.btn=btn; it.copied=false;
+    });
+    markNextChat();
+  }
+  function markNextChat(){
+    var nxt=null;
+    chatItems.forEach(function(it){ it.el.classList.remove("next"); if(nxt===null&&!it.copied)nxt=it; });
+    if(nxt)nxt.el.classList.add("next");
+  }
+  function copyChat(idx,btn){
+    var it=chatItems[idx];
+    copyText(it.text,btn||it.btn,function(){
+      it.copied=true; it.el.classList.add("copied"); markNextChat();
+    });
+  }
+  function copyNextChat(){
+    for(var i=0;i<chatItems.length;i++){
+      if(!chatItems[i].copied){
+        chatItems[i].el.scrollIntoView({block:"nearest"});
+        copyChat(i);
+        return;
+      }
+    }
+  }
+  function chatOpen(){return qs("#chatDrawer").classList.contains("open");}
+  function toggleChat(force){
+    var d=qs("#chatDrawer");
+    var open=typeof force==="boolean"?force:!d.classList.contains("open");
+    d.classList.toggle("open",open);
+    qs("#chatBtn").setAttribute("aria-expanded",open?"true":"false");
+  }
+
+  /* ---------- copy plumbing ---------- */
+  function copyText(text,btn,done){
+    function ok(){
+      if(btn){
+        var old=btn.getAttribute("data-label")||btn.textContent;
+        btn.setAttribute("data-label",old);
+        btn.textContent="Copied ✓"; btn.classList.add("copied");
+        setTimeout(function(){btn.textContent=btn.getAttribute("data-label")||"Copy"; btn.classList.remove("copied");},1400);
+      }
+      if(done)done();
+    }
+    function fallback(){
+      try{
+        var ta=document.createElement("textarea"); ta.value=text;
+        ta.style.position="fixed"; ta.style.opacity="0";
+        document.body.appendChild(ta); ta.select();
+        document.execCommand("copy"); document.body.removeChild(ta); ok();
+      }catch(e){}
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(ok,fallback);
+    }else fallback();
+  }
   window.copyLine=function(btn){
     var line=btn.parentNode.querySelector(".line");
     var text=(line?line.textContent:"").replace(/\s+/g," ").replace(/\s*\(.*?\)\s*$/,"").trim();
-    function ok(){ var old=btn.textContent; btn.textContent="Copied ✓"; btn.classList.add("copied"); setTimeout(function(){btn.textContent=old||"Copy"; btn.classList.remove("copied");},1400); }
-    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(ok,function(){fallback(text,ok);}); }
-    else{ fallback(text,ok); }
+    copyText(text,btn);
   };
-  function fallback(text,ok){
-    try{ var ta=document.createElement("textarea"); ta.value=text; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); ok(); }catch(e){}
+
+  /* ---------- focus mode ---------- */
+  function updateFocusDim(){
+    var cur=currentId();
+    segs.forEach(function(s){
+      s.classList.toggle("current",!!cur&&s.id===cur&&(isLive()||store.focus));
+    });
+    document.body.classList.toggle("focus-dim",store.focus&&!!cur);
+    qs("#focusBtn").setAttribute("aria-pressed",store.focus?"true":"false");
   }
+  function toggleFocus(){
+    store.focus=!store.focus; save(); updateFocusDim();
+    if(store.focus){ var c=currentId(); if(c)seg(c).scrollIntoView({behavior:"smooth",block:"start"}); }
+  }
+
+  /* ---------- overlays ---------- */
+  function toggleHelp(force){
+    var h=qs("#help");
+    h.hidden=typeof force==="boolean"?!force:!h.hidden;
+    if(!h.hidden)qs("#closeHelp").focus();
+  }
+  function closeOverlays(){
+    qs("#help").hidden=true;
+    qs("#debrief").hidden=true;
+    toggleChat(false);
+  }
+
+  /* ---------- keyboard shortcuts ---------- */
+  var navIdx=-1;
+  function moveNav(dir){
+    navIdx=Math.min(segs.length-1,Math.max(0,navIdx+dir));
+    segs.forEach(function(s,i){s.classList.toggle("kbd-focus",i===navIdx);});
+    segs[navIdx].scrollIntoView({behavior:"smooth",block:"start"});
+  }
+  function kbdTarget(){
+    if(navIdx>=0)return segs[navIdx];
+    var c=currentId(); return c?seg(c):null;
+  }
+  document.addEventListener("keydown",function(e){
+    if(e.defaultPrevented)return;
+    var tag=(e.target.tagName||"").toLowerCase();
+    if(tag==="input"||tag==="textarea"||e.target.isContentEditable)return;
+    if(e.metaKey||e.ctrlKey||e.altKey)return;
+    switch(e.key){
+      case "Escape": closeOverlays(); break;
+      case "?": e.preventDefault(); toggleHelp(); break;
+      case "d": case "D": toggleTheme(); break;
+      case "q": case "Q": toggleChat(); break;
+      case "e": case "E": expandAllSegs(); break;
+      case "c": case "C": collapseAllSegs(); break;
+      case "f": case "F": toggleFocus(); break;
+      case "g": case "G": if(!isLive())goLive(); break;
+      case "n": case "N": nextSeg(); break;
+      case "j": case "J": moveNav(1); break;
+      case "k": case "K": moveNav(-1); break;
+      case "x": case "X": (function(){
+        var t=kbdTarget(); if(!t)return;
+        var ck=t.querySelector(".doneCk");
+        if(ck){ ck.checked=!ck.checked; ck.dispatchEvent(new Event("change")); }
+      })(); break;
+    }
+  });
+
+  /* ---------- expand / collapse / reset ---------- */
+  function expandAllSegs(){ segs.forEach(function(s){setOpen(s,true);}); save(); }
+  function collapseAllSegs(){ segs.forEach(function(s){setOpen(s,false);}); save(); }
+  qs("#expandAll").addEventListener("click",expandAllSegs);
+  qs("#collapseAll").addEventListener("click",collapseAllSegs);
+  qs("#resetBtn").addEventListener("click",function(){
+    if(!confirm("Clear all ticks, leads, timers and session data?"))return;
+    var theme=store.theme;
+    store={open:{},done:{},leads:{},live:null,theme:theme,focus:false};
+    save();
+    if(liveTimer){clearInterval(liveTimer);liveTimer=null;}
+    document.body.classList.remove("is-live");
+    qs("#liveBar").hidden=true;
+    clearCountdowns();
+    segs.forEach(function(s){
+      s.classList.remove("done","current","kbd-focus");
+      var ck=s.querySelector(".doneCk"); if(ck)ck.checked=false;
+      setOpen(s,true);
+    });
+    navIdx=-1;
+    document.querySelectorAll(".lead").forEach(renderLead);
+    chatItems.forEach(function(it){it.copied=false;it.el.classList.remove("copied");});
+    markNextChat();
+    qs("#debrief").hidden=true;
+    updateDebriefBtn(); updateProgress(); updateFocusDim();
+    releaseWakeLock();
+  });
+
+  /* smooth-scroll nav also opens target */
+  nav.addEventListener("click",function(e){
+    var a=e.target.closest("a"); if(!a)return;
+    var t=document.querySelector(a.getAttribute("href"));
+    if(t&&!t.classList.contains("open")){ setOpen(t,true); save(); }
+  });
+
+  /* ---------- toolbar wiring ---------- */
+  qs("#goLive").addEventListener("click",goLive);
+  qs("#nextBtn").addEventListener("click",nextSeg);
+  qs("#endBtn").addEventListener("click",function(){
+    if(confirm("End the live session and show the debrief?"))endLive();
+  });
+  qs("#themeBtn").addEventListener("click",toggleTheme);
+  qs("#focusBtn").addEventListener("click",toggleFocus);
+  qs("#helpBtn").addEventListener("click",function(){toggleHelp();});
+  qs("#closeHelp").addEventListener("click",function(){toggleHelp(false);});
+  qs("#debriefBtn").addEventListener("click",showDebrief);
+  qs("#closeDebrief").addEventListener("click",function(){qs("#debrief").hidden=true;});
+  qs("#copyDebrief").addEventListener("click",function(){copyText(debriefSummaryText(),qs("#copyDebrief"));});
+  qs("#chatBtn").addEventListener("click",function(){toggleChat();});
+  qs("#chatClose").addEventListener("click",function(){toggleChat(false);});
+  qs("#copyNextChat").addEventListener("click",copyNextChat);
+  qs("#debrief").addEventListener("click",function(e){ if(e.target===qs("#debrief"))qs("#debrief").hidden=true; });
+  qs("#help").addEventListener("click",function(e){ if(e.target===qs("#help"))toggleHelp(false); });
+
+  /* ---------- confetti (respectful) ---------- */
+  function maybeConfetti(){
+    if(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+    var cols=["#344982","#2f6f9e","#2ca5b8","#ab5c95"];
+    var wrap=document.createElement("div"); wrap.className="confetti"; wrap.setAttribute("aria-hidden","true");
+    for(var i=0;i<36;i++){
+      var b=document.createElement("i");
+      b.style.left=(Math.random()*100)+"%";
+      b.style.background=cols[i%4];
+      b.style.animationDelay=(Math.random()*0.6)+"s";
+      b.style.animationDuration=(1.8+Math.random()*1.2)+"s";
+      wrap.appendChild(b);
+    }
+    document.body.appendChild(wrap);
+    setTimeout(function(){ if(wrap.parentNode)wrap.parentNode.removeChild(wrap); },3600);
+  }
+
+  /* ---------- wake lock: keep the screen on while live ---------- */
+  var wakeLock=null;
+  function requestWakeLock(){
+    try{
+      if("wakeLock" in navigator&&navigator.wakeLock.request){
+        navigator.wakeLock.request("screen").then(function(wl){wakeLock=wl;}).catch(function(){});
+      }
+    }catch(e){}
+  }
+  function releaseWakeLock(){
+    try{ if(wakeLock){wakeLock.release().catch(function(){});wakeLock=null;} }catch(e){}
+  }
+  document.addEventListener("visibilitychange",function(){
+    if(document.visibilityState==="visible"&&isLive())requestWakeLock();
+  });
+
+  /* ---------- service worker: keep working offline ---------- */
+  if("serviceWorker" in navigator&&(location.protocol==="https:"||location.hostname==="localhost"||location.hostname==="127.0.0.1")){
+    window.addEventListener("load",function(){
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    });
+  }
+
+  /* ---------- init ---------- */
+  applyThemeButton();
+  buildChat();
+  updateDebriefBtn();
+  updateFocusDim();
+  if(isLive())enterLive();
 })();
 </script>
 </body>

@@ -1,0 +1,15 @@
+{
+  "name": "Estus Health — Boundaries Run-Sheet",
+  "short_name": "Run-Sheet",
+  "description": "Facilitator companion for the Boundaries live webinar — timers, cue cards and copy-ready scripts.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#090909",
+  "theme_color": "#090909",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
